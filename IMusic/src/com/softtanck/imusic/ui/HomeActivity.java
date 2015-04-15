@@ -6,6 +6,7 @@ import java.util.List;
 import android.R.integer;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -125,7 +126,7 @@ public class HomeActivity extends BaseActivity implements OnPageChangeListener {
 
 		mPager = (ViewPager) findViewById(R.id.home_content_pager);
 
-		titlecolor = getResources().getColor(R.color.common_color);
+		titlecolor = getResources().getColor(R.color.common_title_background);
 
 		initTitle();
 
@@ -187,21 +188,53 @@ public class HomeActivity extends BaseActivity implements OnPageChangeListener {
 	@Override
 	public void onPageScrolled(int position, float currentOffset,
 			int currentpxOffset) {
-
-		// 位置偏移结束
-		if (0 == currentpxOffset) {
-			return;
-		}
+		// 初始位置偏移
+		int moffset = 10;
 		total = position
-				* (ConstantValue.WINDOW_WIDTH - BaseUtils.dip(context, 10)) / 4;
+				* (ConstantValue.WINDOW_WIDTH - BaseUtils.dip(context, moffset))
+				/ 4;
 		// 位置
 		currentPosition = (int) (-currentOffset
-				* ((ConstantValue.WINDOW_WIDTH - BaseUtils.dip(context, 10)) / 4) - total);
+				* ((ConstantValue.WINDOW_WIDTH - BaseUtils
+						.dip(context, moffset)) / 4) - total);
 		tiltleStrip.scrollTo(currentPosition, 0);
 	}
 
 	@Override
 	public void onPageSelected(int position) {
+		// 设置标题颜色
+		switch (position) {
+		case 0:
+			myTtile.setTextColor(titlecolor);
+			setTextColor(recommedTtile, Color.WHITE);
+			setTextColor(songTtile, Color.WHITE);
+			setTextColor(serachTtile, Color.WHITE);
+			break;
+		case 1:
+			recommedTtile.setTextColor(titlecolor);
+			setTextColor(myTtile, Color.WHITE);
+			setTextColor(songTtile, Color.WHITE);
+			setTextColor(serachTtile, Color.WHITE);
+			break;
+		case 2:
+			songTtile.setTextColor(titlecolor);
+			setTextColor(myTtile, Color.WHITE);
+			setTextColor(recommedTtile, Color.WHITE);
+			setTextColor(serachTtile, Color.WHITE);
+			break;
+		case 3:
+			serachTtile.setTextColor(titlecolor);
+			setTextColor(myTtile, Color.WHITE);
+			setTextColor(recommedTtile, Color.WHITE);
+			setTextColor(songTtile, Color.WHITE);
+			break;
+		default:
+			myTtile.setTextColor(titlecolor);
+			setTextColor(recommedTtile, Color.WHITE);
+			setTextColor(songTtile, Color.WHITE);
+			setTextColor(serachTtile, Color.WHITE);
+			break;
+		}
 	}
 
 	@Override
@@ -211,8 +244,17 @@ public class HomeActivity extends BaseActivity implements OnPageChangeListener {
 			currTime = System.currentTimeMillis();
 			return;
 		} else {
-			// 退出程序前判断是否登录 若登录则：保存用户ID和TOKEN
 			ActivityContainer.finishAll();
 		}
+	}
+
+	/**
+	 * 设置字体颜色
+	 * 
+	 * @param view
+	 * @param color
+	 */
+	private void setTextColor(TextView view, int color) {
+		view.setTextColor(color);
 	}
 }

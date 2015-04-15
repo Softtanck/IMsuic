@@ -6,12 +6,425 @@
 
     <com.softtanck.imusic.view.KJScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:scrollbars="none" >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1" />
+        <!-- 最外部供嵌套调用 -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <!-- 云同步 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:layout_marginTop="20dip"
+                android:background="@drawable/home_my_local_music_bg"
+                android:orientation="horizontal"
+                android:padding="5dip" >
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical" >
+
+                    <com.softtanck.imusic.view.RoundedCornerImageView
+                        android:layout_width="40dip"
+                        android:layout_height="40dip"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="5dip"
+                        android:layout_marginLeft="5dip"
+                        android:layout_marginTop="5dip"
+                        android:src="@drawable/tmp_head_1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dip"
+                        android:text="尊严 - 陈柏宇"
+                        android:textColor="@color/xwhite"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_marginRight="10dip"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right" >
+
+                    <ImageView
+                        android:layout_width="30dip"
+                        android:layout_height="30dip"
+                        android:src="@drawable/ic_launcher" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="云同步"
+                        android:textColor="@color/xwhite"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 第一个布局,用来设置背景颜色 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:layout_marginTop="10dip"
+                android:background="@drawable/home_my_local_music_bg"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dip"
+                    android:background="@drawable/home_item_selector"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="5dip" >
+
+                    <ImageView
+                        android:layout_width="30dip"
+                        android:layout_height="30dip"
+                        android:src="@drawable/ic_launcher" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_marginLeft="5dip"
+                        android:layout_weight="7"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top"
+                            android:text="本地歌曲"
+                            android:textColor="@color/xwhite"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:text="100首歌曲"
+                            android:textColor="@color/xwhite"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:gravity="center" >
+
+                        <ImageView
+                            android:layout_width="30dip"
+                            android:layout_height="30dip"
+                            android:src="@drawable/ic_launcher" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:background="@color/xwhite" />
+
+                <!-- 下载管理 -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dip"
+                    android:background="@drawable/home_item_selector"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="5dip" >
+
+                    <ImageView
+                        android:layout_width="30dip"
+                        android:layout_height="30dip"
+                        android:src="@drawable/ic_launcher" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_marginLeft="5dip"
+                        android:layout_weight="7"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top"
+                            android:text="下载管理"
+                            android:textColor="@color/xwhite"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:text="88首歌曲"
+                            android:textColor="@color/xwhite"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:background="@color/xwhite" />
+
+                <!-- 已下载MV -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dip"
+                    android:background="@drawable/home_item_selector"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="5dip" >
+
+                    <ImageView
+                        android:layout_width="30dip"
+                        android:layout_height="30dip"
+                        android:src="@drawable/ic_launcher" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_marginLeft="5dip"
+                        android:layout_weight="7"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top"
+                            android:text="已下载MV"
+                            android:textColor="@color/xwhite"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:text="0首MV"
+                            android:textColor="@color/xwhite"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 下面部分 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:layout_marginTop="20dip"
+                android:background="@drawable/home_my_local_music_bg"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dip"
+                    android:background="@drawable/home_item_selector"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="5dip" >
+
+                    <ImageView
+                        android:layout_width="30dip"
+                        android:layout_height="30dip"
+                        android:src="@drawable/ic_launcher" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_marginLeft="5dip"
+                        android:layout_weight="7"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top"
+                            android:text="我喜欢听"
+                            android:textColor="@color/xwhite"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:text="7首歌(点击收藏歌曲)"
+                            android:textColor="@color/xwhite"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:background="@color/xwhite" />
+
+                <!-- 默认列表 -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dip"
+                    android:background="@drawable/home_item_selector"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="5dip" >
+
+                    <ImageView
+                        android:layout_width="30dip"
+                        android:layout_height="30dip"
+                        android:src="@drawable/ic_launcher" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_marginLeft="5dip"
+                        android:layout_weight="7"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top"
+                            android:text="默认列表"
+                            android:textColor="@color/xwhite"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:text="110首歌曲"
+                            android:textColor="@color/xwhite"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:background="@color/xwhite" />
+
+                <!-- PC默认列表 -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dip"
+                    android:background="@drawable/home_item_selector"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="5dip" >
+
+                    <ImageView
+                        android:layout_width="30dip"
+                        android:layout_height="30dip"
+                        android:src="@drawable/ic_launcher" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_marginLeft="5dip"
+                        android:layout_weight="7"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top"
+                            android:text="PC默认列表"
+                            android:textColor="@color/xwhite"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:text="0首歌曲"
+                            android:textColor="@color/xwhite"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:background="@color/xwhite" />
+
+                <!-- 最近播放 -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dip"
+                    android:background="@drawable/home_item_selector"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="5dip" >
+
+                    <ImageView
+                        android:layout_width="30dip"
+                        android:layout_height="30dip"
+                        android:src="@drawable/ic_launcher" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_marginLeft="5dip"
+                        android:layout_weight="7"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top"
+                            android:text="最近播放"
+                            android:textColor="@color/xwhite"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:text="120首歌曲"
+                            android:textColor="@color/xwhite"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
     </com.softtanck.imusic.view.KJScrollView>
 
 </LinearLayout>

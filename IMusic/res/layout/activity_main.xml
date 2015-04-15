@@ -23,7 +23,9 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:padding="10dip" >
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:paddingTop="10dip" >
 
             <TextView
                 android:id="@+id/home_tv_my_tilte"
@@ -70,6 +72,7 @@
             android:id="@+id/home_iv_category_selector"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dip"
             android:scaleType="matrix"
             android:src="@drawable/home_category_selector" />
 
@@ -90,7 +93,10 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:background="@color/common_color"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:paddingBottom="5dip"
+            android:paddingRight="5dip"
+            android:paddingTop="5dip" >
 
             <com.softtanck.imusic.view.RoundedCornerImageView
                 android:layout_width="50dip"
@@ -129,6 +135,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_marginRight="5dip"
+                android:layout_marginTop="3dip"
                 android:gravity="center_vertical|right" >
 
                 <Button

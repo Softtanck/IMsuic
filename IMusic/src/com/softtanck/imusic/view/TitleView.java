@@ -89,7 +89,7 @@ public class TitleView extends FrameLayout {
 	 */
 	public View addLeftDrawableFinish(final Activity context) {
 		int size = BaseUtils.dip(context, 10);
-		View view = createDrawableMenu(context, R.drawable.btn_back, size,
+		View view = createDrawableMenu(context, R.drawable.title_btn_back, size,
 				size, new OnClickListener() {
 
 					@Override

@@ -13,72 +13,117 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
 
-    <FrameLayout
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="8" >
-    </FrameLayout>
-
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/common_color"
-        android:orientation="horizontal" >
-
-        <com.softtanck.imusic.view.RoundedCornerImageView
-            android:layout_width="50dip"
-            android:layout_height="50dip"
-            android:layout_gravity="center_vertical"
-            android:layout_marginBottom="5dip"
-            android:layout_marginLeft="15dip"
-            android:layout_marginTop="5dip"
-            android:src="@drawable/tmp_head" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_marginLeft="3dip"
-            android:orientation="vertical" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dip"
-                android:layout_marginTop="7dip"
-                android:text="你瞒我瞒"
-                android:textColor="@color/xwhite"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="7dip"
-                android:text="陈柏宇"
-                android:textColor="@color/xwhite"
-                android:textSize="14sp" />
-        </LinearLayout>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_marginRight="5dip"
-            android:gravity="center_vertical|right" >
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="10dip" >
 
-            <Button
-                android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="上一首" />
+                android:layout_weight="1.0"
+                android:gravity="center"
+                android:text="我的"
+                android:textSize="17sp" />
 
-            <Button
-                android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="开始" />
+                android:layout_weight="1.0"
+                android:gravity="center"
+                android:text="推荐"
+                android:textSize="17sp" />
 
-            <Button
-                android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="下一首" />
+                android:layout_weight="1.0"
+                android:gravity="center"
+                android:text="曲库"
+                android:textSize="17sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:gravity="center"
+                android:text="搜索"
+                android:textSize="17sp" />
+        </LinearLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/home_content_pager"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="8" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/common_color"
+            android:orientation="horizontal" >
+
+            <com.softtanck.imusic.view.RoundedCornerImageView
+                android:layout_width="50dip"
+                android:layout_height="50dip"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="5dip"
+                android:layout_marginLeft="15dip"
+                android:layout_marginTop="5dip"
+                android:src="@drawable/tmp_head" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="3dip"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:layout_marginTop="7dip"
+                    android:text="你瞒我瞒"
+                    android:textColor="@color/xwhite"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="7dip"
+                    android:text="陈柏宇"
+                    android:textColor="@color/xwhite"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginRight="5dip"
+                android:gravity="center_vertical|right" >
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="上一首" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="开始" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="下一首" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 

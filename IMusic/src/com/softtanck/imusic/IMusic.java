@@ -1,5 +1,8 @@
 package com.softtanck.imusic;
 
+import com.softtanck.imusic.utils.LogUtils;
+import com.softtanck.imusic.utils.ScreenUtils;
+
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -26,6 +29,14 @@ public class IMusic extends Application {
 		super.onCreate();
 
 		instance = this;
+
+		ConstantValue.WINDOW_HIGHT = ScreenUtils
+				.getScreenHeight(getApplicationContext());
+
+		ConstantValue.WINDOW_WIDTH = ScreenUtils
+				.getScreenWidth(getApplicationContext());
+
+		LogUtils.d("init Appliction");
 	}
 
 	@Override

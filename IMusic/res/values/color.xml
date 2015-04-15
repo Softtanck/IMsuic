@@ -2,7 +2,9 @@
 <resources>
 
     <color name="common_color">#3091e6</color>
+    <color name="common_title_background">#773091e6</color>
     <color name="xwhite">#FFFFFFFF</color>
     <color name="xblack">#00000000</color>
+    <color name="background_tab_pressed">#6633B5E5</color>
 
 </resources>

@@ -16,6 +16,17 @@ public class ConstantValue {
 		 * 存放音乐播放配置
 		 */
 		String SHARENAME_CONFIG = "IMsuic_Config";
+
 	}
+
+	/**
+	 * 屏幕宽度
+	 */
+	public static int WINDOW_WIDTH = 0;
+
+	/**
+	 * 屏幕高度
+	 */
+	public static int WINDOW_HIGHT = 0;
 
 }

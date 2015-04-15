@@ -38,12 +38,12 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
+            android:layout_marginLeft="3dip"
             android:orientation="vertical" >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="top"
                 android:layout_marginLeft="5dip"
                 android:layout_marginTop="7dip"
                 android:text="你瞒我瞒"
@@ -53,12 +53,32 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="5dip"
-                android:layout_marginLeft="5dip"
+                android:layout_marginLeft="7dip"
                 android:text="陈柏宇"
                 android:textColor="@color/xwhite"
                 android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginRight="5dip"
+            android:gravity="center_vertical|right" >
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="上一首" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="开始" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="下一首" />
         </LinearLayout>
     </LinearLayout>
 

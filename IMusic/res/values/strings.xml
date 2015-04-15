@@ -4,5 +4,6 @@
     <string name="app_name">IMusic</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="play_start">开始</string>
 
 </resources>

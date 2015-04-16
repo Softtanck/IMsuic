@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.StaticLayout;
@@ -21,6 +22,7 @@ import com.softtanck.imusic.BaseActivity;
 import com.softtanck.imusic.ConstantValue;
 import com.softtanck.imusic.R;
 import com.softtanck.imusic.adapter.HomeContentAdapter;
+import com.softtanck.imusic.fragment.HomeFragment;
 import com.softtanck.imusic.fragment.MyMusicFragment;
 import com.softtanck.imusic.fragment.RecommendFragment;
 import com.softtanck.imusic.fragment.SearchSongFragment;
@@ -37,77 +39,12 @@ import com.softtanck.imusic.utils.LogUtils;
  * @date Apr 14, 2015 8:20:31 PM
  * 
  */
-public class HomeActivity extends BaseActivity implements OnPageChangeListener {
-
-	/**
-	 * 主页滑动切换
-	 */
-	private ViewPager mPager;
-
-	/**
-	 * 主页页面集合
-	 */
-	private List<Fragment> mList;
-
-	/**
-	 * 中间容器
-	 */
-	private Fragment middleFragment;
-
-	/**
-	 * 主页页面适配器
-	 */
-	private HomeContentAdapter hadapter;
-
-	/**
-	 * 我的标题
-	 */
-	private TextView myTtile;
-
-	/**
-	 * 推荐标题
-	 */
-	private TextView recommedTtile;
-
-	/**
-	 * 曲库标题
-	 */
-	private TextView songTtile;
-
-	/**
-	 * 搜索标题
-	 */
-	private TextView serachTtile;
-
-	/**
-	 * 标题颜色
-	 */
-	private int titlecolor;
-
-	/**
-	 * 标题指示器
-	 */
-	private ImageView tiltleStrip;
-
-	/**
-	 * 指示器偏移
-	 */
-	private int offset;
-
-	/**
-	 * 当前标题位置
-	 */
-	private int currentPosition;
+public class HomeActivity extends BaseActivity {
 
 	/**
 	 * 退出时间
 	 */
-	private long currTime = 0;
-
-	/**
-	 * 标题总共
-	 */
-	private int total;
+	private long currTime;
 
 	@Override
 	protected int getViewId() {
@@ -123,118 +60,15 @@ public class HomeActivity extends BaseActivity implements OnPageChangeListener {
 	 * 初始化布局
 	 */
 	private void initView() {
-
-		mPager = (ViewPager) findViewById(R.id.home_content_pager);
-
-		titlecolor = getResources().getColor(R.color.common_title_background);
-
-		initTitle();
-
-		initContentView();
-
-	}
-
-	/**
-	 * 初始化主页标题
-	 */
-	private void initTitle() {
-		tiltleStrip = (ImageView) findViewById(R.id.home_iv_category_selector);
-		myTtile = (TextView) findViewById(R.id.home_tv_my_tilte);
-		recommedTtile = (TextView) findViewById(R.id.home_tv_recommed_title);
-		songTtile = (TextView) findViewById(R.id.home_tv_song_title);
-		serachTtile = (TextView) findViewById(R.id.home_tv_serach_title);
-		myTtile.setTextColor(titlecolor);
-		// 首先计算出图片的宽度
-		Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-				R.drawable.home_category_selector);
-		// 计算偏移
-		offset = (ConstantValue.WINDOW_WIDTH / 4 - bitmap.getWidth()) / 2;
-		// 设置图片的位置,向右偏移
-		Matrix matrix = new Matrix();
-		// padding 10dip/2
-		matrix.setTranslate(offset + BaseUtils.dip(context, 5), 0);
-		tiltleStrip.setImageMatrix(matrix);
-	}
-
-	/**
-	 * 初始化主页面内容布局
-	 */
-	private void initContentView() {
-		mList = new ArrayList<Fragment>();
-		middleFragment = new MyMusicFragment();
-		mList.add(middleFragment);
-		middleFragment = new RecommendFragment();
-		mList.add(middleFragment);
-		middleFragment = new SongFragment();
-		mList.add(middleFragment);
-		middleFragment = new SearchSongFragment();
-		mList.add(middleFragment);
-		// 适配布局
-		hadapter = new HomeContentAdapter(fragmentManager, mList);
-		mPager.setAdapter(hadapter);
-		mPager.setOffscreenPageLimit(4);
-		mPager.setOnPageChangeListener(this);
+		FragmentTransaction transaction = fragmentManager.beginTransaction();
+		middleFragment = new HomeFragment();
+		transaction.add(R.id.home_content, middleFragment);
+		transaction.commit();
 	}
 
 	@Override
 	public void onDestroyed() {
 
-	}
-
-	@Override
-	public void onPageScrollStateChanged(int position) {
-	}
-
-	@Override
-	public void onPageScrolled(int position, float currentOffset,
-			int currentpxOffset) {
-		// 初始位置偏移
-		int moffset = 10;
-		total = position
-				* (ConstantValue.WINDOW_WIDTH - BaseUtils.dip(context, moffset))
-				/ 4;
-		// 位置
-		currentPosition = (int) (-currentOffset
-				* ((ConstantValue.WINDOW_WIDTH - BaseUtils
-						.dip(context, moffset)) / 4) - total);
-		tiltleStrip.scrollTo(currentPosition, 0);
-	}
-
-	@Override
-	public void onPageSelected(int position) {
-		// 设置标题颜色
-		switch (position) {
-		case 0:
-			myTtile.setTextColor(titlecolor);
-			setTextColor(recommedTtile, Color.WHITE);
-			setTextColor(songTtile, Color.WHITE);
-			setTextColor(serachTtile, Color.WHITE);
-			break;
-		case 1:
-			recommedTtile.setTextColor(titlecolor);
-			setTextColor(myTtile, Color.WHITE);
-			setTextColor(songTtile, Color.WHITE);
-			setTextColor(serachTtile, Color.WHITE);
-			break;
-		case 2:
-			songTtile.setTextColor(titlecolor);
-			setTextColor(myTtile, Color.WHITE);
-			setTextColor(recommedTtile, Color.WHITE);
-			setTextColor(serachTtile, Color.WHITE);
-			break;
-		case 3:
-			serachTtile.setTextColor(titlecolor);
-			setTextColor(myTtile, Color.WHITE);
-			setTextColor(recommedTtile, Color.WHITE);
-			setTextColor(songTtile, Color.WHITE);
-			break;
-		default:
-			myTtile.setTextColor(titlecolor);
-			setTextColor(recommedTtile, Color.WHITE);
-			setTextColor(songTtile, Color.WHITE);
-			setTextColor(serachTtile, Color.WHITE);
-			break;
-		}
 	}
 
 	@Override
@@ -248,13 +82,4 @@ public class HomeActivity extends BaseActivity implements OnPageChangeListener {
 		}
 	}
 
-	/**
-	 * 设置字体颜色
-	 * 
-	 * @param view
-	 * @param color
-	 */
-	private void setTextColor(TextView view, int color) {
-		view.setTextColor(color);
-	}
 }

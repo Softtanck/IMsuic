@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
+        android:paddingTop="10dip" >
+
+        <TextView
+            android:id="@+id/home_tv_my_tilte"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:text="我的"
+            android:textColor="@color/xwhite"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/home_tv_recommed_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:text="推荐"
+            android:textColor="@color/xwhite"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/home_tv_song_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:text="曲库"
+            android:textColor="@color/xwhite"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/home_tv_serach_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:text="搜索"
+            android:textColor="@color/xwhite"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/home_iv_category_selector"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dip"
+        android:scaleType="matrix"
+        android:src="@drawable/home_category_selector" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="5dip"
+        android:background="@color/xwhite" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/home_content_pager"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+
+</LinearLayout>

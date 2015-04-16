@@ -43,6 +43,8 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 
 		holder = (BaseActivity) activity;
 
+		context = holder.getApplicationContext();
+
 		onAttached();
 	}
 

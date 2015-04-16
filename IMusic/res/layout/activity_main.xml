@@ -37,6 +37,7 @@
             android:paddingTop="5dip" >
 
             <com.softtanck.imusic.view.RoundedCornerImageView
+                android:id="@+id/home_iv_now_play_song"
                 android:layout_width="50dip"
                 android:layout_height="50dip"
                 android:layout_gravity="center_vertical"
@@ -76,15 +77,15 @@
                 android:layout_marginTop="3dip"
                 android:gravity="center_vertical|right" >
 
-                <ImageButton
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <ImageButton
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <ImageButton
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>

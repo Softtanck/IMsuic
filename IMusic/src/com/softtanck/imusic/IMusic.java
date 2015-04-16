@@ -6,6 +6,8 @@ import com.softtanck.imusic.utils.ScreenUtils;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 
 /**
  * 
@@ -115,5 +117,4 @@ public class IMusic extends Application {
 				ConstantValue.App.SHARENAME_CONFIG, Context.MODE_PRIVATE);
 		return sp.edit().remove(key).commit();
 	}
-
 }

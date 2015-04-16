@@ -134,4 +134,5 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 	public void onClick(View v) {
 
 	}
+
 }

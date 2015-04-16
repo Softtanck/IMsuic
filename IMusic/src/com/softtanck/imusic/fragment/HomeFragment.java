@@ -251,5 +251,4 @@ public class HomeFragment extends BaseFragment implements OnPageChangeListener {
 	private void setTextColor(TextView view, int color) {
 		view.setTextColor(color);
 	}
-
 }

@@ -86,6 +86,7 @@
                 android:orientation="vertical" >
 
                 <LinearLayout
+                    android:id="@+id/home_ll_local_music"
                     android:layout_width="match_parent"
                     android:layout_height="60dip"
                     android:background="@drawable/home_item_selector"
@@ -145,6 +146,7 @@
                 <!-- 下载管理 -->
 
                 <LinearLayout
+                    android:id="@+id/home_ll_down_manager"
                     android:layout_width="match_parent"
                     android:layout_height="60dip"
                     android:background="@drawable/home_item_selector"
@@ -192,6 +194,7 @@
                 <!-- 已下载MV -->
 
                 <LinearLayout
+                    android:id="@+id/home_ll_downed_mv"
                     android:layout_width="match_parent"
                     android:layout_height="60dip"
                     android:background="@drawable/home_item_selector"
@@ -244,6 +247,7 @@
                 android:orientation="vertical" >
 
                 <LinearLayout
+                    android:id="@+id/home_ll_my_love_song"
                     android:layout_width="match_parent"
                     android:layout_height="60dip"
                     android:background="@drawable/home_item_selector"
@@ -291,6 +295,7 @@
                 <!-- 默认列表 -->
 
                 <LinearLayout
+                    android:id="@+id/home_ll_default_list"
                     android:layout_width="match_parent"
                     android:layout_height="60dip"
                     android:background="@drawable/home_item_selector"
@@ -338,6 +343,7 @@
                 <!-- PC默认列表 -->
 
                 <LinearLayout
+                    android:id="@+id/home_ll_pc_default_list"
                     android:layout_width="match_parent"
                     android:layout_height="60dip"
                     android:background="@drawable/home_item_selector"
@@ -385,6 +391,7 @@
                 <!-- 最近播放 -->
 
                 <LinearLayout
+                    android:id="@+id/home_ll_recent"
                     android:layout_width="match_parent"
                     android:layout_height="60dip"
                     android:background="@drawable/home_item_selector"

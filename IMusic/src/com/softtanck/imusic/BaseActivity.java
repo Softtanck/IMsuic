@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,7 +29,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	/**
 	 * 中间视图要展示的View
 	 */
-	protected Fragment middleFragment;
+	public Fragment middleFragment;
 	/**
 	 * 布局加载器
 	 */
@@ -133,4 +134,28 @@ public abstract class BaseActivity extends FragmentActivity implements
 		super.finish();
 		// TODO 一些切换的动画
 	}
+
+	/**
+	 * 切换页面
+	 * 
+	 * @param id
+	 *            布局Id
+	 * @param fragment
+	 *            布局
+	 * @param bundle
+	 *            参数
+	 */
+	public void changeFragment(int id, Fragment fragment, Bundle bundle) {
+		FragmentTransaction beginTransaction = fragmentManager
+				.beginTransaction();
+		if (null != bundle) {
+			fragment.setArguments(bundle);
+		}
+		beginTransaction
+				.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+		beginTransaction.add(id, fragment);
+		beginTransaction.addToBackStack(null);
+		beginTransaction.commit();
+	}
+
 }

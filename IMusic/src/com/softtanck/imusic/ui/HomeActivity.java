@@ -1,34 +1,15 @@
 package com.softtanck.imusic.ui;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import android.R.integer;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.Matrix;
-import android.support.v4.app.Fragment;
+import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.text.StaticLayout;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.softtanck.imusic.ActivityContainer;
 import com.softtanck.imusic.BaseActivity;
-import com.softtanck.imusic.ConstantValue;
 import com.softtanck.imusic.R;
-import com.softtanck.imusic.adapter.HomeContentAdapter;
 import com.softtanck.imusic.fragment.HomeFragment;
-import com.softtanck.imusic.fragment.MyMusicFragment;
-import com.softtanck.imusic.fragment.RecommendFragment;
-import com.softtanck.imusic.fragment.SearchSongFragment;
-import com.softtanck.imusic.fragment.SongFragment;
-import com.softtanck.imusic.utils.BaseUtils;
-import com.softtanck.imusic.utils.LogUtils;
+import com.softtanck.imusic.view.RoundedCornerImageView;
 
 /**
  * 
@@ -46,14 +27,28 @@ public class HomeActivity extends BaseActivity {
 	 */
 	private long currTime;
 
+	/**
+	 * 音乐头像:主界面
+	 */
+	private RoundedCornerImageView songHead;
+
 	@Override
 	protected int getViewId() {
 		return R.layout.activity_main;
 	}
 
 	@Override
+	public void onDestroyed() {
+
+	}
+
+	@Override
 	protected void onActivityCreate() {
 		initView();
+
+		songHead = (RoundedCornerImageView) findViewById(R.id.home_iv_now_play_song);
+
+		songHead.setOnClickListener(this);
 	}
 
 	/**
@@ -67,12 +62,20 @@ public class HomeActivity extends BaseActivity {
 	}
 
 	@Override
-	public void onDestroyed() {
-
+	public void onClick(View v) {
+		super.onClick(v);
+		switch (v.getId()) {
+		case R.id.home_iv_now_play_song:// 主界面音乐头像
+			Intent music = new Intent(HomeActivity.this, MusicActivity.class);
+			startActivity(music);
+			break;
+		}
 	}
 
 	@Override
 	public void onBackPressed() {
+		if (fragmentManager.popBackStackImmediate())
+			return;
 		if ((System.currentTimeMillis() - currTime) > 2000) {
 			showToast("再按一次,退出应用");
 			currTime = System.currentTimeMillis();

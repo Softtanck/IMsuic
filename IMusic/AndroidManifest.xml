@@ -23,6 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.softtanck.imusic.ui.MusicActivity" />
     </application>
 
 </manifest>

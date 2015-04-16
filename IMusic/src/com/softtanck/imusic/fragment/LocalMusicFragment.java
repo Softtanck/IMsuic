@@ -2,7 +2,6 @@ package com.softtanck.imusic.fragment;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.softtanck.imusic.BaseFragment;
@@ -11,19 +10,14 @@ import com.softtanck.imusic.utils.LogUtils;
 
 /**
  * 
- * @Description TODO 主页面我的碎片布局
+ * @Description TODO 本地歌曲
  * 
  * @author Tanck
  * 
- * @date Apr 15, 2015 9:51:38 AM
+ * @date Apr 16, 2015 3:55:15 PM
  * 
  */
-public class MyMusicFragment extends BaseFragment {
-
-	/**
-	 * 本地音乐
-	 */
-	private LinearLayout localMusic;
+public class LocalMusicFragment extends BaseFragment {
 
 	@Override
 	public void onAttached() {
@@ -37,34 +31,22 @@ public class MyMusicFragment extends BaseFragment {
 
 	@Override
 	public int getLayoutView() {
-		return R.layout.fragment_mymusic;
+		return R.layout.fragment_local_music;
 	}
 
 	@Override
 	public void onViewCreate(View view, Bundle savedInstanceState) {
-
-		localMusic = (LinearLayout) view.findViewById(R.id.home_ll_local_music);
-
-		localMusic.setOnClickListener(this);
-
+		LogUtils.d("onViewCreate");
 	}
 
 	@Override
 	protected void getservciesData() {
+		LogUtils.d("getservciesData");
 	}
 
 	@Override
 	public void onClick(View v) {
 		super.onClick(v);
-
-		switch (v.getId()) {
-		case R.id.home_ll_local_music:// 本地音乐
-			holder.middleFragment = new LocalMusicFragment();
-			holder.changeFragment(R.id.home_content, holder.middleFragment,
-					null);
-			break;
-
-		}
-
 	}
+
 }

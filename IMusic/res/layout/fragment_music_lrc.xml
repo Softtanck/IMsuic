@@ -2,11 +2,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
     android:orientation="vertical" >
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="我是歌词" />
+        android:layout_height="0dip"
+        android:layout_marginTop="10dip"
+        android:layout_weight="0.5"
+        android:gravity="center" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="尊严  - 陈柏宇"
+            android:textColor="@color/xwhite"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <com.softtanck.imusic.view.LrcView
+        android:id="@+id/music_lrc"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="15dip"
+        android:layout_weight="8" />
 
 </LinearLayout>

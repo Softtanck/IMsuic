@@ -1,10 +1,18 @@
 package com.softtanck.imusic.fragment;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
 
 import com.softtanck.imusic.BaseFragment;
 import com.softtanck.imusic.R;
+import com.softtanck.imusic.bean.LrcContent;
+import com.softtanck.imusic.view.LrcView;
 
 /**
  * 
@@ -17,33 +25,32 @@ import com.softtanck.imusic.R;
  */
 public class LrcFragment extends BaseFragment {
 
+	/**
+	 * 歌词布局
+	 */
+	private LrcView lrcView;
+
 	@Override
 	public void onAttached() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onDeatch() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public int getLayoutView() {
-		// TODO Auto-generated method stub
 		return R.layout.fragment_music_lrc;
 	}
 
 	@Override
 	public void onViewCreate(View view, Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-
+		lrcView = (LrcView) view.findViewById(R.id.music_lrc);
 	}
 
 	@Override
 	protected void getservciesData() {
-		// TODO Auto-generated method stub
 
 	}
 

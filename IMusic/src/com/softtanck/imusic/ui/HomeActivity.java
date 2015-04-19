@@ -3,7 +3,9 @@ package com.softtanck.imusic.ui;
 import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
-import android.widget.TextView;
+import android.view.View.OnClickListener;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 import com.softtanck.imusic.ActivityContainer;
 import com.softtanck.imusic.BaseActivity;
@@ -31,6 +33,8 @@ public class HomeActivity extends BaseActivity {
 	 * 音乐头像:主界面
 	 */
 	private RoundedCornerImageView songHead;
+	
+	private ImageView imageView;
 
 	@Override
 	protected int getViewId() {
@@ -49,6 +53,16 @@ public class HomeActivity extends BaseActivity {
 		songHead = (RoundedCornerImageView) findViewById(R.id.home_iv_now_play_song);
 
 		songHead.setOnClickListener(this);
+		
+		imageView = (ImageView) findViewById(R.id.iv_test);
+		imageView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				imageView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.icon_translate));
+			}
+		});
 	}
 
 	/**

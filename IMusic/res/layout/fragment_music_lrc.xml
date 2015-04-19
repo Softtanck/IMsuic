@@ -20,7 +20,8 @@
             android:textSize="19sp"
             android:textStyle="bold" />
     </LinearLayout>
-    <com.softtanck.imusic.view.LrcView
+
+    <com.softtanck.imusic.view.LrcView
         android:id="@+id/music_lrc"
         android:layout_width="match_parent"
         android:layout_height="0dp"

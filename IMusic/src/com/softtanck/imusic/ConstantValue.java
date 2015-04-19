@@ -29,4 +29,9 @@ public class ConstantValue {
 	 */
 	public static int WINDOW_HIGHT = 0;
 
+	/**
+	 * 更新播放器状态
+	 */
+	public static final String UPDATE_STATE = "com.softtanck.imusic.UPDATE_STATE";
+
 }

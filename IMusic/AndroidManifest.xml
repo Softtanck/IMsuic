@@ -24,6 +24,8 @@
             </intent-filter>
         </activity>
         <activity android:name="com.softtanck.imusic.ui.MusicActivity" />
+
+        <service android:name="com.softtanck.imusic.service.PlayService" />
     </application>
 
 </manifest>

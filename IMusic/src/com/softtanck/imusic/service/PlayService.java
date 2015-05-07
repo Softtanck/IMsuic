@@ -1,5 +1,7 @@
 package com.softtanck.imusic.service;
 
+import com.softtanck.imusic.bean.PlayMsg;
+
 import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;

@@ -9,11 +9,19 @@ package com.softtanck.imusic;
  * @date May 7, 2015 11:34:42 AM
  * 
  */
-public class BasePlayMessage {
+public class BaseMessage {
 
 	/**
 	 * 消息类型
 	 */
-	public int MSG_TYPE;
+	private int msgType;
+
+	public int getMsgType() {
+		return msgType;
+	}
+
+	public void setMsgType(int msgType) {
+		this.msgType = msgType;
+	}
 
 }

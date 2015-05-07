@@ -113,8 +113,7 @@ public class Music {
 		super();
 	}
 
-	public Music(String fileName, String title, int duration, String singer,
-			String album, String year, String type, String size, String fileUrl) {
+	public Music(String fileName, String title, int duration, String singer, String album, String year, String type, String size, String fileUrl) {
 		super();
 		this.fileName = fileName;
 		this.title = title;

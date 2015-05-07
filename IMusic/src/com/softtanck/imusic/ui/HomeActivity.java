@@ -18,6 +18,7 @@ import com.softtanck.imusic.fragment.HomeFragment;
 import com.softtanck.imusic.service.LocalBinder;
 import com.softtanck.imusic.service.PlayService;
 import com.softtanck.imusic.ui.utils.RoundedCornerImageView;
+import com.softtanck.imusic.utils.LogUtils;
 
 /**
  * 
@@ -43,7 +44,7 @@ public class HomeActivity extends BaseActivity {
 	/**
 	 * 音乐播放服务
 	 */
-	protected PlayService mService;
+	public PlayService mService;
 
 	private ImageView imageView;
 

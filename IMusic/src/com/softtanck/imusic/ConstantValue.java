@@ -89,4 +89,11 @@ public class ConstantValue {
 	 * 更新图标
 	 */
 	public static final int MSG_UPDATE_ICON = 9;
+
+	/**
+	 * 音乐相关
+	 */
+	public static final int TYPE_MSG_MUSIC = 10;
+
+	// TODO Other msg;
 }

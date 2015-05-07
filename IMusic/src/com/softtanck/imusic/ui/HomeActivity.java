@@ -17,7 +17,7 @@ import com.softtanck.imusic.R;
 import com.softtanck.imusic.fragment.HomeFragment;
 import com.softtanck.imusic.service.LocalBinder;
 import com.softtanck.imusic.service.PlayService;
-import com.softtanck.imusic.view.RoundedCornerImageView;
+import com.softtanck.imusic.ui.utils.RoundedCornerImageView;
 
 /**
  * 

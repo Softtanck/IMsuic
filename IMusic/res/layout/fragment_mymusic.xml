@@ -35,7 +35,7 @@
                     android:layout_weight="2"
                     android:gravity="center_vertical" >
 
-                    <com.softtanck.imusic.view.RoundedCornerImageView
+                    <com.softtanck.imusic.ui.utils.RoundedCornerImageView
                         android:layout_width="40dip"
                         android:layout_height="40dip"
                         android:layout_gravity="center_vertical"

@@ -1,4 +1,4 @@
-package com.softtanck.imusic.view;
+package com.softtanck.imusic.ui.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;

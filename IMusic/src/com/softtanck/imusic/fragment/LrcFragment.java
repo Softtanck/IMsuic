@@ -42,8 +42,6 @@ public class LrcFragment extends BaseFragment {
 	@Override
 	public void onViewCreate(View view, Bundle savedInstanceState) {
 		lrcView = (LrcView) view.findViewById(R.id.music_lrc);
-		Intent service = new Intent(context, PlayService.class);
-		context.startService(service);
 	}
 
 	@Override

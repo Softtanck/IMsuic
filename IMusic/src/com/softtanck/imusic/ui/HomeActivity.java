@@ -1,6 +1,10 @@
 package com.softtanck.imusic.ui;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.IBinder;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -11,6 +15,8 @@ import com.softtanck.imusic.ActivityContainer;
 import com.softtanck.imusic.BaseActivity;
 import com.softtanck.imusic.R;
 import com.softtanck.imusic.fragment.HomeFragment;
+import com.softtanck.imusic.service.LocalBinder;
+import com.softtanck.imusic.service.PlayService;
 import com.softtanck.imusic.view.RoundedCornerImageView;
 
 /**
@@ -33,8 +39,18 @@ public class HomeActivity extends BaseActivity {
 	 * 音乐头像:主界面
 	 */
 	private RoundedCornerImageView songHead;
-	
+
+	/**
+	 * 音乐播放服务
+	 */
+	protected PlayService mService;
+
 	private ImageView imageView;
+
+	/**
+	 * 服务是否被绑定
+	 */
+	protected boolean isBinded;
 
 	@Override
 	protected int getViewId() {
@@ -43,7 +59,8 @@ public class HomeActivity extends BaseActivity {
 
 	@Override
 	public void onDestroyed() {
-
+		// 取消绑定
+		unbindService(mConnection);
 	}
 
 	@Override
@@ -53,17 +70,48 @@ public class HomeActivity extends BaseActivity {
 		songHead = (RoundedCornerImageView) findViewById(R.id.home_iv_now_play_song);
 
 		songHead.setOnClickListener(this);
-		
+
 		imageView = (ImageView) findViewById(R.id.iv_test);
 		imageView.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				imageView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.icon_translate));
 			}
 		});
+
+		// 初始化服务
+		initService();
+
 	}
+
+	/**
+	 * 初始化服务
+	 */
+	private void initService() {
+		// Bind to LocalService
+		Intent intent = new Intent(this, PlayService.class);
+		bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+	}
+
+	/**
+	 * 回调服务
+	 */
+	private ServiceConnection mConnection = new ServiceConnection() {
+
+		@Override
+		public void onServiceConnected(ComponentName className, IBinder service) {
+			LocalBinder binder = (LocalBinder) service;
+			mService = binder.getService();
+			isBinded = true;
+		}
+
+		@Override
+		public void onServiceDisconnected(ComponentName arg0) {
+			isBinded = false;
+		}
+	};
 
 	/**
 	 * 初始化布局

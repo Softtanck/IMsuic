@@ -1,117 +1,56 @@
 package com.softtanck.imusic.service;
 
-import com.softtanck.imusic.ConstantValue;
-
 import android.app.Service;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.media.MediaPlayer;
-import android.media.MediaPlayer.OnCompletionListener;
-import android.media.MediaPlayer.OnPreparedListener;
+import android.os.Binder;
 import android.os.IBinder;
 
 /**
  * 
- * @Description TODO 音乐播放服务
+ * @Description TODO 音乐播放服务器.[用于发送更新歌词和播放音乐]
  * 
  * @author Tanck
  * 
- * @date Apr 17, 2015 1:25:35 PM
+ * @date May 7, 2015 11:10:03 AM
  * 
  */
-public class PlayService extends Service implements OnCompletionListener,
-		OnPreparedListener {
+public class PlayService extends Service {
 
 	/**
-	 * 播放器
+	 * 音乐播放器
 	 */
-	private MediaPlayer mPlayer;
+	private MediaPlayer mplayer;
 
 	/**
-	 * 播放消息接收者
+	 * 本地服务对象
 	 */
-	private MsgReceiver receiver;
+	private IBinder mBinder = new LocalBinder(PlayService.this);
 
 	@Override
 	public IBinder onBind(Intent intent) {
-		return null;
+		return mBinder;
 	}
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		mPlayer = new MediaPlayer();
-		mPlayer.setOnPreparedListener(this);
-		mPlayer.setOnCompletionListener(this);
-
-		// 注册播放服务器的接口
-		receiver = new MsgReceiver();
-		IntentFilter filter = new IntentFilter();
-		filter.addAction(ConstantValue.UPDATE_STATE);
-		registerReceiver(receiver, filter);
+		mplayer = new MediaPlayer();
 	}
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		// List<LrcContent> mLrcList = new ArrayList<LrcContent>();
-		// LogUtils.d("----------");
-		// for (int i = 0; i < 20; i++) {
-		// LrcContent lrcContent = new LrcContent();
-		// lrcContent.setLrcStr("---------" + i);
-		// mLrcList.add(lrcContent);
-		// }
-		// LrcFragment.lrcView.setmLrcList(mLrcList);
+
 		return super.onStartCommand(intent, flags, startId);
-	}
-
-	private void play() {
-
-	}
-
-	/**
-	 * 当一首歌播放完成后CallBack
-	 * 
-	 * @param mp
-	 */
-	@Override
-	public void onCompletion(MediaPlayer mp) {
-
-	}
-
-	/**
-	 * 准备播放的时候
-	 * 
-	 * @param mp
-	 */
-	@Override
-	public void onPrepared(MediaPlayer mp) {
-
-	}
-
-	/**
-	 * 
-	 * @Description TODO 播放消息接收者
-	 * 
-	 * @author Tanck
-	 * 
-	 * @date Apr 17, 2015 5:04:57 PM
-	 * 
-	 */
-	private class MsgReceiver extends BroadcastReceiver {
-
-		@Override
-		public void onReceive(Context context, Intent intent) {
-
-		}
 	}
 
 	@Override
 	public void onDestroy() {
+		if (mplayer.isPlaying()) {
+			mplayer.stop();
+			mplayer.release();
+			mplayer = null;
+		}
 		super.onDestroy();
-		unregisterReceiver(receiver);
-		receiver = null;
 	}
-
 }

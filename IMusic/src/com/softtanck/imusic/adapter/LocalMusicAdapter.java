@@ -29,6 +29,8 @@ public class LocalMusicAdapter extends BaseAdapter {
 
 	private List<Music> list;
 
+	private String UNKNOW = "<unknown>";
+
 	public LocalMusicAdapter(Context context, List<Music> list) {
 		this.context = context;
 		this.list = list;
@@ -61,6 +63,10 @@ public class LocalMusicAdapter extends BaseAdapter {
 
 			holder.musicName = (TextView) convertView.findViewById(R.id.tv_local_music_name);
 
+			holder.musicSingger = (TextView) convertView.findViewById(R.id.tv_local_music_singer);
+
+			holder.ablumView = (ImageView) convertView.findViewById(R.id.iv_local_music_ablumimg);
+
 			convertView.setTag(holder);
 
 		} else {
@@ -69,11 +75,20 @@ public class LocalMusicAdapter extends BaseAdapter {
 
 		holder.musicName.setText(list.get(position).getFileName());
 
+		String tempString = list.get(position).getSinger();
+
+		if (UNKNOW.equals(tempString))
+			tempString = "未知";
+
+		holder.musicSingger.setText(list.get(position).getTime());
+
 		return convertView;
 	}
 
 	class ViewHolder {
-		TextView musicName;
+		TextView musicName;// 音乐名字
+		ImageView ablumView;// 音乐专辑图片
+		TextView musicSingger;// 音乐歌手名字
 	}
 
 }

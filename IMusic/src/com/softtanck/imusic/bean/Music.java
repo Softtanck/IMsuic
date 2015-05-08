@@ -25,10 +25,19 @@ public class Music {
 	private String type; // 格式
 	private String size;// 歌曲大小
 	private String fileUrl;// 路径
+	private String ablumPic;// 专辑图片
 	private String time; // 转换后歌曲时长 格式 mm:ss
 
 	public Music(String fileName) {
 		this.fileName = fileName;
+	}
+
+	public String getAblumPic() {
+		return ablumPic;
+	}
+
+	public void setAblumPic(String ablumPic) {
+		this.ablumPic = ablumPic;
 	}
 
 	public String getFileName() {

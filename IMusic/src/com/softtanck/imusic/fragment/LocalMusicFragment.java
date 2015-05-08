@@ -5,6 +5,8 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.softtanck.imusic.BaseFragment;
 import com.softtanck.imusic.R;
@@ -13,6 +15,7 @@ import com.softtanck.imusic.bean.Music;
 import com.softtanck.imusic.thirdpart.ActionSlideExpandableListView;
 import com.softtanck.imusic.thirdpart.ActionSlideExpandableListView.OnActionClickListener;
 import com.softtanck.imusic.utils.LogUtils;
+import com.softtanck.imusic.utils.MusicUtil;
 
 /**
  * 
@@ -23,7 +26,7 @@ import com.softtanck.imusic.utils.LogUtils;
  * @date Apr 16, 2015 3:55:15 PM
  * 
  */
-public class LocalMusicFragment extends BaseFragment implements OnActionClickListener {
+public class LocalMusicFragment extends BaseFragment implements OnActionClickListener, OnItemClickListener {
 
 	/**
 	 * 本地歌曲
@@ -70,14 +73,12 @@ public class LocalMusicFragment extends BaseFragment implements OnActionClickLis
 	 */
 	private void initView(View view) {
 		listView = (ActionSlideExpandableListView) view.findViewById(R.id.lv_local_music);
-		list = new ArrayList<Music>();
-		for (int i = 0; i < 10; i++) {
-			Music music = new Music("尊严");
-			list.add(music);
-		}
+		// 耗时操作.
+		list = MusicUtil.getAllMusic(context);
 		adapter = new LocalMusicAdapter(context, list);
 		listView.setAdapter(adapter);
 		listView.setItemActionListener(this, buttonIds);
+		listView.setOnItemClickListener(this);
 	}
 
 	@Override
@@ -111,6 +112,11 @@ public class LocalMusicFragment extends BaseFragment implements OnActionClickLis
 			// Other
 			break;
 		}
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		LogUtils.d("onItemClick-->" + position);
 	}
 
 }

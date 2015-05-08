@@ -67,7 +67,7 @@ public class LocalMusicAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		holder.musicName.setText(list.get(position).getFileName() + position + "");
+		holder.musicName.setText(list.get(position).getFileName());
 
 		return convertView;
 	}

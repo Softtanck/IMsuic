@@ -125,8 +125,6 @@ public class LocalMusicFragment extends BaseFragment implements OnActionClickLis
 		view.getLocationInWindow(startLocation);
 		startLocation[0] = ConstantValue.WINDOW_WIDTH / 2;
 		LogUtils.d("-------" + startLocation[1]);
-		ImageView startview = new ImageView(context);
-		startview.setImageResource(R.drawable.ic_launcher);
-		PlayMusicAnim.setAnim(holder, startview, HomeActivity.songHead, startLocation);
+		PlayMusicAnim.setAnim(holder, "", HomeActivity.songHead, startLocation);
 	}
 }

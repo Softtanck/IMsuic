@@ -1,5 +1,8 @@
 package com.softtanck.imusic.anim;
 
+import com.softtanck.imusic.ConstantValue;
+import com.softtanck.imusic.R;
+
 import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +12,7 @@ import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationSet;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 /**
@@ -28,19 +32,38 @@ public class PlayMusicAnim {
 	private static ViewGroup manimLayout;
 
 	/**
+	 * 开始动画视图
+	 */
+	private static ImageView startview;
+
+	/**
+	 * 顶级窗口
+	 */
+	private static ViewGroup rootView;
+
+	/**
+	 * 真实动画层
+	 */
+	private static LinearLayout animLayout;
+
+	/**
 	 * 为播放的Item设置动画
 	 * 
 	 * @param context
 	 *            上下文
-	 * @param startview
-	 *            开始播放的视图
+	 * @param imgUrl
+	 *            播放动画的图片路径
 	 * @param endview
 	 *            结束播放的位置的视图
 	 * @param startLocation
 	 *            开始播放的位置
 	 */
-	public static void setAnim(Activity context, final View startview, View endview, int[] startLocation) {
-		manimLayout = creatAnimView(context);
+	public static void setAnim(Activity context, String imgUrl, View endview, int[] startLocation) {
+
+		startview = new ImageView(context);
+		startview.setImageResource(R.drawable.ic_launcher);
+
+		manimLayout = creatAnimView(context);// 创建动画层
 		manimLayout.addView(startview);// 添加动画到动画层
 		final View view = setViewinAnimLayout(startview, startLocation);
 
@@ -82,7 +105,7 @@ public class PlayMusicAnim {
 			// 动画的结束
 			@Override
 			public void onAnimationEnd(Animation animation) {
-				startview.setVisibility(View.GONE);
+				view.setVisibility(View.GONE);
 			}
 		});
 
@@ -95,8 +118,8 @@ public class PlayMusicAnim {
 	 * @return
 	 */
 	private static ViewGroup creatAnimView(Activity context) {
-		ViewGroup rootView = (ViewGroup) context.getWindow().getDecorView();// 获取顶级窗口
-		LinearLayout animLayout = new LinearLayout(context);
+		rootView = (ViewGroup) context.getWindow().getDecorView();// 获取顶级窗口
+		animLayout = new LinearLayout(context);
 		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
 		animLayout.setLayoutParams(lp);
 		animLayout.setId(Integer.MAX_VALUE);
@@ -116,7 +139,7 @@ public class PlayMusicAnim {
 		int x = location[0];
 		int y = location[1];
 		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-		lp.leftMargin = x;
+		lp.leftMargin = ConstantValue.WINDOW_WIDTH / 2;// 屏幕的一半
 		lp.topMargin = y;
 		view.setLayoutParams(lp);// 要做动画的View设置位置
 		return view;

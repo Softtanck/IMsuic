@@ -39,7 +39,7 @@ public class HomeActivity extends BaseActivity {
 	/**
 	 * 音乐头像:主界面
 	 */
-	private RoundedCornerImageView songHead;
+	public static RoundedCornerImageView songHead;
 
 	/**
 	 * 音乐播放服务

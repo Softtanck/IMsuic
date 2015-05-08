@@ -7,13 +7,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
 
 import com.softtanck.imusic.BaseFragment;
+import com.softtanck.imusic.ConstantValue;
 import com.softtanck.imusic.R;
 import com.softtanck.imusic.adapter.LocalMusicAdapter;
+import com.softtanck.imusic.anim.PlayMusicAnim;
 import com.softtanck.imusic.bean.Music;
 import com.softtanck.imusic.thirdpart.ActionSlideExpandableListView;
 import com.softtanck.imusic.thirdpart.ActionSlideExpandableListView.OnActionClickListener;
+import com.softtanck.imusic.ui.HomeActivity;
 import com.softtanck.imusic.utils.LogUtils;
 import com.softtanck.imusic.utils.MusicUtil;
 
@@ -117,6 +121,12 @@ public class LocalMusicFragment extends BaseFragment implements OnActionClickLis
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		LogUtils.d("onItemClick-->" + position);
+		int[] startLocation = new int[2];
+		view.getLocationInWindow(startLocation);
+		startLocation[0] = ConstantValue.WINDOW_WIDTH / 2;
+		LogUtils.d("-------" + startLocation[1]);
+		ImageView startview = new ImageView(context);
+		startview.setImageResource(R.drawable.ic_launcher);
+		PlayMusicAnim.setAnim(holder, startview, HomeActivity.songHead, startLocation);
 	}
-
 }

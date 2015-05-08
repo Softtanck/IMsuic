@@ -27,6 +27,10 @@ public class Music {
 	private String fileUrl;// 路径
 	private String time; // 转换后歌曲时长 格式 mm:ss
 
+	public Music(String fileName) {
+		this.fileName = fileName;
+	}
+
 	public String getFileName() {
 		return fileName;
 	}

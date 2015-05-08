@@ -1,12 +1,10 @@
 package com.softtanck.imusic.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import com.softtanck.imusic.BaseFragment;
 import com.softtanck.imusic.R;
-import com.softtanck.imusic.service.PlayService;
 import com.softtanck.imusic.view.LrcView;
 
 /**

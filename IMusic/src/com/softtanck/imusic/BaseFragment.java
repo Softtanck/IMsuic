@@ -1,7 +1,5 @@
 package com.softtanck.imusic;
 
-import com.softtanck.imusic.utils.LogUtils;
-
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -10,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+
+import com.softtanck.imusic.service.meessage.MyHandler;
 
 /**
  * @author Tanck
@@ -37,9 +37,18 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 	 */
 	private boolean init = true;
 
+	/**
+	 * 消息处理者
+	 */
+	public MyHandler mhandler;
+
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
+
+		mhandler = new MyHandler();
+
+		HandlerMessageContainer.addHandler(mhandler);
 
 		holder = (BaseActivity) activity;
 
@@ -49,8 +58,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		return inflater.inflate(getLayoutView(), container, false);
 	}
 
@@ -72,6 +80,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 	@Override
 	public void onDetach() {
 		super.onDetach();
+		HandlerMessageContainer.removeHandler(mhandler);
 		onDeatch();
 		holder = null;
 	}

@@ -39,4 +39,21 @@ public class PlayMsg extends BaseMessage {
 		this.msgIntent = msgIntent;
 	}
 
+	public PlayMsg(){
+		
+	}
+	
+	/**
+	 * 
+	 * @param music
+	 *            音乐实体
+	 * @param msgIntent
+	 *            播放意图
+	 */
+	public PlayMsg(Music music, int msgIntent, int msgType) {
+		super(msgType);
+		this.music = music;
+		this.msgIntent = msgIntent;
+	}
+
 }

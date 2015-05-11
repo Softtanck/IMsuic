@@ -18,6 +18,7 @@ import com.softtanck.imusic.fragment.RecommendFragment;
 import com.softtanck.imusic.fragment.SearchSongFragment;
 import com.softtanck.imusic.fragment.SongFragment;
 import com.softtanck.imusic.fragment.SongInfoFragment;
+import com.softtanck.imusic.view.tools.MyTransFormer;
 
 /**
  * 
@@ -73,6 +74,8 @@ public class MusicActivity extends BaseActivity implements OnPageChangeListener 
 	 */
 	private void initContentView() {
 		mList = new ArrayList<Fragment>();
+		middleFragment = new SongInfoFragment();
+		mList.add(middleFragment);
 		middleFragment = new LrcFragment();
 		mList.add(middleFragment);
 		middleFragment = new SongInfoFragment();
@@ -80,8 +83,10 @@ public class MusicActivity extends BaseActivity implements OnPageChangeListener 
 		// 适配布局
 		hadapter = new HomeContentAdapter(fragmentManager, mList);
 		musicPager.setAdapter(hadapter);
+		musicPager.setPageTransformer(true, new MyTransFormer());
 		musicPager.setOffscreenPageLimit(4);
 		musicPager.setOnPageChangeListener(this);
+		musicPager.setCurrentItem(1);
 	}
 
 	@Override

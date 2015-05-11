@@ -2,6 +2,8 @@ package com.softtanck.imusic.anim;
 
 import com.softtanck.imusic.ConstantValue;
 import com.softtanck.imusic.R;
+import com.softtanck.imusic.bean.Music;
+import com.softtanck.imusic.fragment.OnPlayAnimListener;
 
 import android.app.Activity;
 import android.view.View;
@@ -47,18 +49,25 @@ public class PlayMusicAnim {
 	private static LinearLayout animLayout;
 
 	/**
+	 * 动画监听
+	 */
+	private static OnPlayAnimListener listener;
+
+	/**
 	 * 为播放的Item设置动画
 	 * 
 	 * @param context
 	 *            上下文
-	 * @param imgUrl
-	 *            播放动画的图片路径
+	 * @param music
+	 *            音乐实体
 	 * @param endview
 	 *            结束播放的位置的视图
 	 * @param startLocation
 	 *            开始播放的位置
 	 */
-	public static void setAnim(Activity context, String imgUrl, View endview, int[] startLocation) {
+	public static void setAnim(Activity context, final Music music, View endview, int[] startLocation) {
+
+		startLocation[0] = ConstantValue.WINDOW_WIDTH / 2;// 初始化宽度
 
 		startview = new ImageView(context);
 		startview.setImageResource(R.drawable.ic_launcher);
@@ -95,6 +104,9 @@ public class PlayMusicAnim {
 			@Override
 			public void onAnimationStart(Animation animation) {
 				view.setVisibility(View.VISIBLE);
+				if (null != listener) {
+					listener.OnAnimStarted(music);
+				}
 			}
 
 			@Override
@@ -106,6 +118,9 @@ public class PlayMusicAnim {
 			@Override
 			public void onAnimationEnd(Animation animation) {
 				view.setVisibility(View.GONE);
+				if (null != listener) {
+					listener.OnAnimEnded(music);
+				}
 			}
 		});
 
@@ -139,10 +154,14 @@ public class PlayMusicAnim {
 		int x = location[0];
 		int y = location[1];
 		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-		lp.leftMargin = ConstantValue.WINDOW_WIDTH / 2;// 屏幕的一半
+		lp.leftMargin = x;// 屏幕的一半
 		lp.topMargin = y;
 		view.setLayoutParams(lp);// 要做动画的View设置位置
 		return view;
+	}
+
+	public static void setListener(OnPlayAnimListener listener) {
+		PlayMusicAnim.listener = listener;
 	}
 
 }

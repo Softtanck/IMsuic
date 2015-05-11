@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -15,6 +17,9 @@ import com.softtanck.imusic.R;
 import com.softtanck.imusic.adapter.LocalMusicAdapter;
 import com.softtanck.imusic.anim.PlayMusicAnim;
 import com.softtanck.imusic.bean.Music;
+import com.softtanck.imusic.bean.PlayMsg;
+import com.softtanck.imusic.service.meessage.HandlerMessageListener;
+import com.softtanck.imusic.service.meessage.MyHandler;
 import com.softtanck.imusic.thirdpart.ActionSlideExpandableListView;
 import com.softtanck.imusic.thirdpart.ActionSlideExpandableListView.OnActionClickListener;
 import com.softtanck.imusic.ui.HomeActivity;
@@ -45,12 +50,22 @@ public class LocalMusicFragment extends BaseFragment implements OnActionClickLis
 	/**
 	 * 音乐集合
 	 */
-	private List<Music> list;
+	private List<Music> mMusiclist;
 
 	/**
 	 * 四个展开按钮
 	 */
 	private int[] buttonIds = { R.id.tv_local_music_ls, R.id.tv_local_music_add, R.id.tv_local_music_delete, R.id.tv_local_music_info };
+
+	/**
+	 * 播放消息
+	 */
+	protected PlayMsg msg;
+
+	/**
+	 * 消息处理者
+	 */
+	private MyHandler handler;
 
 	@Override
 	public void onAttached() {
@@ -69,7 +84,19 @@ public class LocalMusicFragment extends BaseFragment implements OnActionClickLis
 
 	@Override
 	public void onViewCreate(View view, Bundle savedInstanceState) {
+
 		initView(view);
+
+		handler = mhandler;
+
+		handler.setListener(new HandlerMessageListener() {
+
+			@Override
+			public void handlerMessage(Message msg) {
+				LogUtils.d("msg:" + msg.what);
+			}
+		});
+
 	}
 
 	/**
@@ -78,8 +105,8 @@ public class LocalMusicFragment extends BaseFragment implements OnActionClickLis
 	private void initView(View view) {
 		listView = (ActionSlideExpandableListView) view.findViewById(R.id.lv_local_music);
 		// 耗时操作.
-		list = MusicUtil.getAllMusic(context);
-		adapter = new LocalMusicAdapter(context, list);
+		mMusiclist = MusicUtil.getAllMusic(context);
+		adapter = new LocalMusicAdapter(context, mMusiclist);
 		listView.setAdapter(adapter);
 		listView.setItemActionListener(this, buttonIds);
 		listView.setOnItemClickListener(this);
@@ -123,8 +150,19 @@ public class LocalMusicFragment extends BaseFragment implements OnActionClickLis
 		LogUtils.d("onItemClick-->" + position);
 		int[] startLocation = new int[2];
 		view.getLocationInWindow(startLocation);
-		startLocation[0] = ConstantValue.WINDOW_WIDTH / 2;
-		LogUtils.d("-------" + startLocation[1]);
-		PlayMusicAnim.setAnim(holder, "", HomeActivity.songHead, startLocation);
+		// 先设置监听
+		PlayMusicAnim.setListener(new OnPlayAnimListener() {
+
+			@Override
+			public void OnAnimStarted(Music music) {
+			}
+
+			@Override
+			public void OnAnimEnded(Music music) {
+				msg = new PlayMsg(music, ConstantValue.MSG_PLAY, ConstantValue.TYPE_MSG_MUSIC);
+				HomeActivity.mService.MusicCoreService(msg);
+			}
+		});
+		PlayMusicAnim.setAnim(holder, mMusiclist.get(position), HomeActivity.songHead, startLocation);
 	}
 }

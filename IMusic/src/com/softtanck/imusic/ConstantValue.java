@@ -1,7 +1,5 @@
 package com.softtanck.imusic;
 
-import android.R.integer;
-
 /**
  * 
  * @Description TODO 存放应用程序全局变量
@@ -30,6 +28,11 @@ public class ConstantValue {
 	 * 屏幕高度
 	 */
 	public static int WINDOW_HIGHT = 0;
+
+	/**
+	 * 当前消息标志
+	 */
+	public static int CURRENT_TAG = 0;
 
 	/**
 	 * 更新播放器状态
@@ -77,6 +80,11 @@ public class ConstantValue {
 	 * 循环
 	 */
 	public static final int MSG_CIRCLE = 7;
+
+	/**
+	 * 准备
+	 */
+	public static final int MSG_PREPARE = 11;
 
 	/*********************** 传递类 ***********************/
 

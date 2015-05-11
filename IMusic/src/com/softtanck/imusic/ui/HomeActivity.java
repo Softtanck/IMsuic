@@ -18,7 +18,6 @@ import com.softtanck.imusic.fragment.HomeFragment;
 import com.softtanck.imusic.service.LocalBinder;
 import com.softtanck.imusic.service.PlayService;
 import com.softtanck.imusic.ui.utils.RoundedCornerImageView;
-import com.softtanck.imusic.utils.LogUtils;
 
 /**
  * 
@@ -44,9 +43,12 @@ public class HomeActivity extends BaseActivity {
 	/**
 	 * 音乐播放服务
 	 */
-	public PlayService mService;
+	public static PlayService mService;
 
-	private ImageView imageView;
+	/**
+	 * 播放或者暂停按钮
+	 */
+	private ImageView mplay_pause;
 
 	/**
 	 * 服务是否被绑定
@@ -66,19 +68,19 @@ public class HomeActivity extends BaseActivity {
 
 	@Override
 	protected void onActivityCreate() {
+
 		initView();
 
 		songHead = (RoundedCornerImageView) findViewById(R.id.home_iv_now_play_song);
 
 		songHead.setOnClickListener(this);
 
-		imageView = (ImageView) findViewById(R.id.iv_test);
-		imageView.setOnClickListener(new OnClickListener() {
+		mplay_pause = (ImageView) findViewById(R.id.iv_main_play_pause);
+		mplay_pause.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				imageView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.icon_translate));
+				mplay_pause.startAnimation(AnimationUtils.loadAnimation(context, R.anim.icon_translate));
 			}
 		});
 

@@ -24,4 +24,10 @@ public class BaseMessage {
 		this.msgType = msgType;
 	}
 
+	public BaseMessage() {
+	}
+
+	public BaseMessage(int msgType) {
+		this.msgType = msgType;
+	}
 }

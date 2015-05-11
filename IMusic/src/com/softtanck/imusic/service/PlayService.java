@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.IBinder;
+import android.os.Message;
 
 import com.softtanck.imusic.ConstantValue;
+import com.softtanck.imusic.HandlerMessageContainer;
 import com.softtanck.imusic.bean.Music;
 import com.softtanck.imusic.bean.PlayMsg;
 
@@ -105,6 +107,13 @@ public class PlayService extends Service implements OnCompletionListener {
 		default:
 			break;
 		}
+
+		// 发送消息
+		Message senMessage = new Message();
+		senMessage.what = msg.getMusic().getFileUrl().hashCode();
+		ConstantValue.CURRENT_TAG = senMessage.what;
+		HandlerMessageContainer.sendAllMessage(senMessage);
+
 	}
 
 	/**

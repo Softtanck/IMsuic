@@ -3,6 +3,7 @@ package com.softtanck.imusic;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -23,8 +24,7 @@ import com.softtanck.imusic.view.TitleView;
  * 
  * @date Jan 16, 2015 5:20:57 PM
  */
-public abstract class BaseActivity extends FragmentActivity implements
-		OnClickListener {
+public abstract class BaseActivity extends FragmentActivity implements OnClickListener {
 
 	/**
 	 * 中间视图要展示的View
@@ -146,13 +146,11 @@ public abstract class BaseActivity extends FragmentActivity implements
 	 *            参数
 	 */
 	public void changeFragment(int id, Fragment fragment, Bundle bundle) {
-		FragmentTransaction beginTransaction = fragmentManager
-				.beginTransaction();
+		FragmentTransaction beginTransaction = fragmentManager.beginTransaction();
 		if (null != bundle) {
 			fragment.setArguments(bundle);
 		}
-		beginTransaction
-				.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+		beginTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
 		beginTransaction.add(id, fragment);
 		beginTransaction.addToBackStack(null);
 		beginTransaction.commit();

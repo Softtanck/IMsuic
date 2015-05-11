@@ -104,4 +104,24 @@ public class ConstantValue {
 	public static final int TYPE_MSG_MUSIC = 10;
 
 	// TODO Other msg;
+
+	/********************** 音乐状态 **************************/
+
+	/**
+	 * 音乐当前状态
+	 */
+	public static int MUSIC_CURRENT_STATE = 0;
+
+	/**
+	 * 正在播放
+	 */
+	public static final int MUSIC_STATE_PLAYING = 1;
+
+	/**
+	 * 暂停
+	 */
+	public static final int MUSIC_STATE_PAUSE = 2;
+
+	// TODO Other state;
+
 }

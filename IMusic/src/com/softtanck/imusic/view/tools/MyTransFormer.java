@@ -17,13 +17,16 @@ import android.view.View;
 @SuppressLint("NewApi")
 public class MyTransFormer implements PageTransformer {
 
+	/**
+	 * 手指滑动的时候不停的回调
+	 */
 	public void transformPage(View view, float position) {
 
 		if (-1 > position) { // 不可见
 			view.setAlpha(0);
 		} else if (1 >= position) {
 			view.setAlpha(1);
-			ViewPagerHelper.setScale(view, position, 0.9f);
+			ViewPagerHelper.setFlip(view, position, 0.5f);
 		} else {
 			view.setAlpha(0);
 		}

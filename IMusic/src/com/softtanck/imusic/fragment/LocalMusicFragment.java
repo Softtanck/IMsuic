@@ -35,7 +35,7 @@ import com.softtanck.imusic.utils.MusicUtil;
  * @date Apr 16, 2015 3:55:15 PM
  * 
  */
-public class LocalMusicFragment extends BaseFragment implements OnActionClickListener, OnItemClickListener {
+public class LocalMusicFragment extends BaseFragment implements OnActionClickListener, OnItemClickListener, HandlerMessageListener {
 
 	/**
 	 * 本地歌曲
@@ -62,10 +62,15 @@ public class LocalMusicFragment extends BaseFragment implements OnActionClickLis
 	 */
 	protected PlayMsg msg;
 
-	/**
-	 * 消息处理者
-	 */
-	private MyHandler handler;
+	@Override
+	public void handlerMessage(Message msg) {
+		if (ConstantValue.TYPE_MSG_MUSIC == msg.arg1) {// 为音乐类型
+			if (ConstantValue.CURRENT_TAG == msg.what) {// 特定handler
+				// 开始更新UI
+			}
+		}
+
+	}
 
 	@Override
 	public void onAttached() {
@@ -87,15 +92,7 @@ public class LocalMusicFragment extends BaseFragment implements OnActionClickLis
 
 		initView(view);
 
-		handler = mhandler;
-
-		handler.setListener(new HandlerMessageListener() {
-
-			@Override
-			public void handlerMessage(Message msg) {
-				LogUtils.d("msg:" + msg.what);
-			}
-		});
+		mhandler.setListener(this);
 
 	}
 
@@ -159,10 +156,13 @@ public class LocalMusicFragment extends BaseFragment implements OnActionClickLis
 
 			@Override
 			public void OnAnimEnded(Music music) {
+				// 设置标志
+				ConstantValue.CURRENT_TAG = music.hashCode();
 				msg = new PlayMsg(music, ConstantValue.MSG_PLAY, ConstantValue.TYPE_MSG_MUSIC);
 				HomeActivity.mService.MusicCoreService(msg);
 			}
 		});
 		PlayMusicAnim.setAnim(holder, mMusiclist.get(position), HomeActivity.songHead, startLocation);
 	}
+
 }

@@ -103,16 +103,16 @@ public class PlayService extends Service implements OnCompletionListener {
 				// TODO 循环播放
 				break;
 			}
+
+			// 发送消息,为了可维护性.
+			Message senMessage = new Message();
+			senMessage.arg1 = ConstantValue.TYPE_MSG_MUSIC;// 音乐类型
+			senMessage.what = music.hashCode(); // handler更新标志
+			HandlerMessageContainer.sendAllMessage(senMessage);
 			break;
 		default:
 			break;
 		}
-
-		// 发送消息
-		Message senMessage = new Message();
-		senMessage.what = msg.getMusic().getFileUrl().hashCode();
-		ConstantValue.CURRENT_TAG = senMessage.what;
-		HandlerMessageContainer.sendAllMessage(senMessage);
 
 	}
 
@@ -130,6 +130,7 @@ public class PlayService extends Service implements OnCompletionListener {
 			mplayer.setDataSource(music.getFileUrl());
 			mplayer.prepare();
 			mplayer.start();
+			ConstantValue.MUSIC_CURRENT_STATE = ConstantValue.MUSIC_STATE_PLAYING;// 设置状态为播放
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -143,6 +144,7 @@ public class PlayService extends Service implements OnCompletionListener {
 	private void pause(Music music) {
 		if (mplayer.isPlaying()) {
 			mplayer.stop();
+			ConstantValue.MUSIC_CURRENT_STATE = ConstantValue.MUSIC_STATE_PAUSE;// 设置状态为暂停
 		}
 	}
 

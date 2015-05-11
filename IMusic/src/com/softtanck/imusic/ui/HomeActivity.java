@@ -10,10 +10,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.softtanck.imusic.ActivityContainer;
 import com.softtanck.imusic.BaseActivity;
+import com.softtanck.imusic.ConstantValue;
 import com.softtanck.imusic.R;
+import com.softtanck.imusic.bean.PlayMsg;
 import com.softtanck.imusic.fragment.HomeFragment;
 import com.softtanck.imusic.service.LocalBinder;
 import com.softtanck.imusic.service.PlayService;
@@ -48,12 +51,37 @@ public class HomeActivity extends BaseActivity {
 	/**
 	 * 播放或者暂停按钮
 	 */
-	private ImageView mplay_pause;
+	public static ImageView mplay_pause;
+
+	/**
+	 * 下一首
+	 */
+	private ImageView mNextsong;
+
+	/**
+	 * 菜单
+	 */
+	private ImageView mMenu;
 
 	/**
 	 * 服务是否被绑定
 	 */
 	protected boolean isBinded;
+
+	/**
+	 * 发送消息
+	 */
+	private PlayMsg msg;
+
+	/**
+	 * 歌曲名字
+	 */
+	public static TextView msongName;
+
+	/**
+	 * 歌曲作者
+	 */
+	public static TextView msongSinger;
 
 	@Override
 	protected int getViewId() {
@@ -76,13 +104,16 @@ public class HomeActivity extends BaseActivity {
 		songHead.setOnClickListener(this);
 
 		mplay_pause = (ImageView) findViewById(R.id.iv_main_play_pause);
-		mplay_pause.setOnClickListener(new OnClickListener() {
+		mNextsong = (ImageView) findViewById(R.id.iv_main_next_song);
+		mMenu = (ImageView) findViewById(R.id.iv_main_menu);
 
-			@Override
-			public void onClick(View v) {
-				mplay_pause.startAnimation(AnimationUtils.loadAnimation(context, R.anim.icon_translate));
-			}
-		});
+		// 歌曲名字-作者
+		msongName = (TextView) findViewById(R.id.tv_main_song_name);
+		msongSinger = (TextView) findViewById(R.id.tv_main_song_singer);
+
+		mNextsong.setOnClickListener(this);
+		mplay_pause.setOnClickListener(this);
+		mMenu.setOnClickListener(this);
 
 		// 初始化服务
 		initService();
@@ -133,6 +164,18 @@ public class HomeActivity extends BaseActivity {
 		case R.id.home_iv_now_play_song:// 主界面音乐头像
 			Intent music = new Intent(HomeActivity.this, MusicActivity.class);
 			startActivity(music);
+			break;
+		case R.id.iv_main_play_pause:// 播放暂停
+			mplay_pause.startAnimation(AnimationUtils.loadAnimation(context, R.anim.icon_translate));
+			if (ConstantValue.MUSIC_CURRENT_STATE == ConstantValue.MUSIC_STATE_PLAYING) {
+				mplay_pause.setImageResource(R.drawable.music_pause_selector);
+			} else {
+				mplay_pause.setImageResource(R.drawable.music_play_selector);
+			}
+			break;
+		case R.id.iv_main_next_song:// 下一首
+			break;
+		case R.id.iv_main_menu:// 菜单
 			break;
 		}
 	}

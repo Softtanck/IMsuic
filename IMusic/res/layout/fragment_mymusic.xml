@@ -134,7 +134,7 @@
                         <ImageView
                             android:layout_width="30dip"
                             android:layout_height="30dip"
-                            android:src="@drawable/music_pause" />
+                            android:src="@drawable/music_play_selector" />
                     </LinearLayout>
                 </LinearLayout>
 

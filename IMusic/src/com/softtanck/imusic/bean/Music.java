@@ -1,6 +1,8 @@
 package com.softtanck.imusic.bean;
 
 import android.annotation.SuppressLint;
+
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -14,7 +16,7 @@ import java.util.Date;
  * 
  */
 @SuppressLint("SimpleDateFormat")
-public class Music {
+public class Music implements Serializable {
 
 	private String fileName; // 文件名
 	private String title; // 歌曲名

@@ -4,13 +4,16 @@ import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Message;
 
 import com.softtanck.imusic.ConstantValue;
 import com.softtanck.imusic.HandlerMessageContainer;
+import com.softtanck.imusic.R;
 import com.softtanck.imusic.bean.Music;
 import com.softtanck.imusic.bean.PlayMsg;
+import com.softtanck.imusic.ui.HomeActivity;
 
 /**
  * 
@@ -63,7 +66,11 @@ public class PlayService extends Service implements OnCompletionListener {
 
 	@Override
 	public void onCompletion(MediaPlayer mp) {
-
+		mp.reset();
+		ConstantValue.MUSIC_CURRENT_STATE = ConstantValue.MUSIC_STATE_STOP;
+		if (null != HomeActivity.mplay_pause) {// 更新UI
+			HomeActivity.mplay_pause.setImageResource(R.drawable.music_play_selector);
+		}
 	}
 
 	/**
@@ -105,15 +112,31 @@ public class PlayService extends Service implements OnCompletionListener {
 			}
 
 			// 发送消息,为了可维护性.
-			Message senMessage = new Message();
-			senMessage.arg1 = ConstantValue.TYPE_MSG_MUSIC;// 音乐类型
-			senMessage.what = music.hashCode(); // handler更新标志
-			HandlerMessageContainer.sendAllMessage(senMessage);
+			sendMsgToUi(music, ConstantValue.TYPE_MSG_MUSIC);
+
 			break;
 		default:
 			break;
 		}
 
+	}
+
+	/**
+	 * 发送消息
+	 * 
+	 * @param music
+	 *            音乐实体
+	 * @param typeMsgMusic
+	 *            消息类型
+	 */
+	private void sendMsgToUi(Music music, int typeMsgMusic) {
+		Message senMessage = new Message();
+		senMessage.arg1 = typeMsgMusic;// 音乐类型
+		senMessage.what = music.hashCode(); // handler更新标志
+		Bundle data = new Bundle();
+		data.putSerializable(ConstantValue.MUSIC_CURRENT_OBJECT, music);
+		senMessage.setData(data);
+		HandlerMessageContainer.sendAllMessage(senMessage);
 	}
 
 	/**

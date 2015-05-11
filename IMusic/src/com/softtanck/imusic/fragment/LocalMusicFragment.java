@@ -62,14 +62,31 @@ public class LocalMusicFragment extends BaseFragment implements OnActionClickLis
 	 */
 	protected PlayMsg msg;
 
+	/**
+	 * 绑定消息
+	 */
+	private Bundle mbBundle;
+
 	@Override
 	public void handlerMessage(Message msg) {
 		if (ConstantValue.TYPE_MSG_MUSIC == msg.arg1) {// 为音乐类型
 			if (ConstantValue.CURRENT_TAG == msg.what) {// 特定handler
 				// 开始更新UI
+				if (ConstantValue.MUSIC_CURRENT_STATE == ConstantValue.MUSIC_STATE_PLAYING) {
+					HomeActivity.mplay_pause.setImageResource(R.drawable.music_pause_selector);
+				}
+
+				mbBundle = msg.getData();
+
+				// 更新歌曲信息
+				if (null != mbBundle) {
+					Music music = (Music) mbBundle.get(ConstantValue.MUSIC_CURRENT_OBJECT);
+					HomeActivity.msongName.setText(music.getFileName());
+					HomeActivity.msongSinger.setText(music.getSinger());
+				}
+
 			}
 		}
-
 	}
 
 	@Override

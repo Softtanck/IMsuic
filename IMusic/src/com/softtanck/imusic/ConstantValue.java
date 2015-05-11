@@ -113,6 +113,11 @@ public class ConstantValue {
 	public static int MUSIC_CURRENT_STATE = 0;
 
 	/**
+	 * 音乐当前播放对象
+	 */
+	public static String MUSIC_CURRENT_OBJECT = "";
+
+	/**
 	 * 正在播放
 	 */
 	public static final int MUSIC_STATE_PLAYING = 1;
@@ -121,6 +126,11 @@ public class ConstantValue {
 	 * 暂停
 	 */
 	public static final int MUSIC_STATE_PAUSE = 2;
+
+	/**
+	 * 停止
+	 */
+	public static final int MUSIC_STATE_STOP = 3;
 
 	// TODO Other state;
 

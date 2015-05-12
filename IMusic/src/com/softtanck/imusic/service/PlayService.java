@@ -150,9 +150,14 @@ public class PlayService extends Service implements OnCompletionListener {
 				mplayer.stop();
 				mplayer.reset();
 			}
-			mplayer.setDataSource(music.getFileUrl());
-			mplayer.prepare();
+			// 非暂停状态
+			if (ConstantValue.MUSIC_CURRENT_STATE != ConstantValue.MUSIC_STATE_PAUSE) {
+				mplayer.setDataSource(music.getFileUrl());
+				mplayer.prepare();
+			}
 			mplayer.start();
+
+			ConstantValue.currentMusic = music;
 			ConstantValue.MUSIC_CURRENT_STATE = ConstantValue.MUSIC_STATE_PLAYING;// 设置状态为播放
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -166,7 +171,7 @@ public class PlayService extends Service implements OnCompletionListener {
 	 */
 	private void pause(Music music) {
 		if (mplayer.isPlaying()) {
-			mplayer.stop();
+			mplayer.pause();
 			ConstantValue.MUSIC_CURRENT_STATE = ConstantValue.MUSIC_STATE_PAUSE;// 设置状态为暂停
 		}
 	}

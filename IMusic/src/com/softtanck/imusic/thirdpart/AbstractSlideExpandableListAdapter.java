@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 
@@ -54,6 +55,7 @@ public abstract class AbstractSlideExpandableListAdapter extends WrapperListAdap
 	 * recalculate. The height is calculated just before the view is drawn.
 	 */
 	private final SparseIntArray viewHeights = new SparseIntArray(10);
+	private ImageView toggleView;
 
 	public AbstractSlideExpandableListAdapter(ListAdapter wrapped) {
 		super(wrapped);
@@ -201,22 +203,27 @@ public abstract class AbstractSlideExpandableListAdapter extends WrapperListAdap
 					if (type == ExpandCollapseAnimation.EXPAND) {
 						LogUtils.d("view is Oepened");
 						button.startAnimation(AnimationUtils.loadAnimation(button.getContext(), R.anim.icon_rotate_start));
+						((ImageView) button).setImageResource(R.drawable.music_arrow_bottom_pressed);
 						openItems.set(position, true);
 					} else {
 						LogUtils.d("view is Closed");
 						button.startAnimation(AnimationUtils.loadAnimation(button.getContext(), R.anim.icon_rotate_end));
+						((ImageView) button).setImageResource(R.drawable.music_arrow_selector);
 						openItems.set(position, false);
 					}
 					// check if we need to collapse a different view
 					if (type == ExpandCollapseAnimation.EXPAND) {
 						if (lastOpenPosition != -1 && lastOpenPosition != position) {
-							if (lastOpen != null) {
+							if (lastOpen != null && toggleView != null) {
+								toggleView.clearAnimation();
+								toggleView.setImageResource(R.drawable.music_arrow_selector);
 								animateView(lastOpen, ExpandCollapseAnimation.COLLAPSE);
 							}
 							openItems.set(lastOpenPosition, false);
 						}
 						lastOpen = target;
 						lastOpenPosition = position;
+						toggleView = (ImageView) button;
 					} else if (lastOpenPosition == position) {
 						lastOpenPosition = -1;
 					}

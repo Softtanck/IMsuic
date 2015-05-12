@@ -1,5 +1,7 @@
 package com.softtanck.imusic;
 
+import com.softtanck.imusic.bean.Music;
+
 /**
  * 
  * @Description TODO 存放应用程序全局变量
@@ -133,5 +135,10 @@ public class ConstantValue {
 	public static final int MUSIC_STATE_STOP = 3;
 
 	// TODO Other state;
+
+	/**
+	 * 当前正在播放的音乐对象
+	 */
+	public static Music currentMusic;
 
 }

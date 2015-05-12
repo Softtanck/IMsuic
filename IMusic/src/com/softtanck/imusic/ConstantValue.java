@@ -1,5 +1,8 @@
 package com.softtanck.imusic;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.softtanck.imusic.bean.Music;
 
 /**
@@ -140,5 +143,15 @@ public class ConstantValue {
 	 * 当前正在播放的音乐对象
 	 */
 	public static Music currentMusic;
+
+	/**
+	 * 当前播放音乐的位置
+	 */
+	public static int currentMusicPostion = 0;
+
+	/**
+	 * 本地音乐集合
+	 */
+	public static List<Music> mlocalMusics = new ArrayList<Music>();
 
 }

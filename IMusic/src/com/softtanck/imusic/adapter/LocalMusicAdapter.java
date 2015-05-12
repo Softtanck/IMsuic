@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.softtanck.imusic.R;
 import com.softtanck.imusic.bean.Music;
+import com.softtanck.imusic.ui.HomeActivity;
 import com.softtanck.imusic.utils.LogUtils;
 
 /**
@@ -72,15 +73,18 @@ public class LocalMusicAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
+		try {
+			holder.musicName.setText(list.get(position).getTitle());
 
-		holder.musicName.setText(list.get(position).getFileName());
+			String tempString = list.get(position).getSinger();
 
-		String tempString = list.get(position).getSinger();
+			if (UNKNOW.equals(tempString))
+				tempString = "未知";
 
-		if (UNKNOW.equals(tempString))
-			tempString = "未知";
-
-		holder.musicSingger.setText(list.get(position).getTime());
+			holder.musicSingger.setText(list.get(position).getTime());
+		} catch (Exception e) {
+			((HomeActivity) context).showToast("您的程序遇到一点问题:" + e.getMessage());
+		}
 
 		return convertView;
 	}

@@ -15,6 +15,9 @@ import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.softtanck.imusic.ConstantValue;
+import com.softtanck.imusic.bean.Music;
+
 import android.annotation.TargetApi;
 import android.app.ActivityManager;
 import android.app.Notification;
@@ -37,7 +40,6 @@ import android.os.Environment;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
-
 public class BaseUtils {
 
 	public static Map<String, String> initMap(Object... params) {
@@ -55,29 +57,21 @@ public class BaseUtils {
 		Bundle bundle = new Bundle();
 		for (int i = 0; i < params.length; i = i + 2) {
 			if (params[i + 1] instanceof String) {
-				bundle.putString(String.valueOf(params[i]),
-						String.valueOf(params[i + 1]));
+				bundle.putString(String.valueOf(params[i]), String.valueOf(params[i + 1]));
 			} else if (params[i + 1] instanceof Integer) {
-				bundle.putInt(String.valueOf(params[i]),
-						Integer.valueOf(params[i + 1].toString()));
+				bundle.putInt(String.valueOf(params[i]), Integer.valueOf(params[i + 1].toString()));
 			} else if (params[i + 1] instanceof Float) {
-				bundle.putFloat(String.valueOf(params[i]),
-						Float.valueOf(params[i + 1].toString()));
+				bundle.putFloat(String.valueOf(params[i]), Float.valueOf(params[i + 1].toString()));
 			} else if (params[i + 1] instanceof Double) {
-				bundle.putDouble(String.valueOf(params[i]),
-						Double.valueOf(params[i + 1].toString()));
+				bundle.putDouble(String.valueOf(params[i]), Double.valueOf(params[i + 1].toString()));
 			} else if (params[i + 1] instanceof Long) {
-				bundle.putFloat(String.valueOf(params[i]),
-						Long.valueOf(params[i + 1].toString()));
+				bundle.putFloat(String.valueOf(params[i]), Long.valueOf(params[i + 1].toString()));
 			} else if (params[i + 1] instanceof Short) {
-				bundle.putShort(String.valueOf(params[i]),
-						Short.valueOf(params[i + 1].toString()));
+				bundle.putShort(String.valueOf(params[i]), Short.valueOf(params[i + 1].toString()));
 			} else if (params[i + 1] instanceof Byte) {
-				bundle.putByte(String.valueOf(params[i]),
-						Byte.valueOf(params[i + 1].toString()));
+				bundle.putByte(String.valueOf(params[i]), Byte.valueOf(params[i + 1].toString()));
 			} else if (params[i + 1] instanceof Boolean) {
-				bundle.putBoolean(String.valueOf(params[i]),
-						Boolean.valueOf(params[i + 1].toString()));
+				bundle.putBoolean(String.valueOf(params[i]), Boolean.valueOf(params[i + 1].toString()));
 			} else {
 				throw new RuntimeException("param should be base type");
 			}
@@ -86,8 +80,7 @@ public class BaseUtils {
 	}
 
 	public static boolean hasSDCard() {
-		return Environment.MEDIA_MOUNTED.equals(Environment
-				.getExternalStorageState());
+		return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
 	}
 
 	public static String inputStreamToString(InputStream in) {
@@ -119,8 +112,7 @@ public class BaseUtils {
 		return result;
 	}
 
-	public static boolean inputStreamToOutputStream(InputStream input,
-			OutputStream output) {
+	public static boolean inputStreamToOutputStream(InputStream input, OutputStream output) {
 		BufferedOutputStream out = null;
 		BufferedInputStream in = null;
 		in = new BufferedInputStream(input, 16 * 1024);
@@ -163,35 +155,27 @@ public class BaseUtils {
 	}
 
 	public static Bitmap drawableToBitmap(Drawable drawable) {
-		Bitmap bitmap = Bitmap
-				.createBitmap(
-						drawable.getIntrinsicWidth(),
-						drawable.getIntrinsicHeight(),
-						drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
-								: Bitmap.Config.RGB_565);
+		Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(),
+				drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565);
 		Canvas canvas = new Canvas(bitmap);
-		drawable.setBounds(0, 0, drawable.getIntrinsicWidth(),
-				drawable.getIntrinsicHeight());
+		drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
 		drawable.draw(canvas);
 		return bitmap;
 	}
 
 	public static int dip(Context context, int value) {
 		DisplayMetrics dm = context.getResources().getDisplayMetrics();
-		return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-				value, dm);
+		return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, dm);
 	}
 
 	public static int sp(Context context, int value) {
 		DisplayMetrics dm = context.getResources().getDisplayMetrics();
-		return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-				value, dm);
+		return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, value, dm);
 	}
 
 	public static int getAppVersion(Context context) {
 		try {
-			PackageInfo info = context.getPackageManager().getPackageInfo(
-					context.getPackageName(), 0);
+			PackageInfo info = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
 			return info.versionCode;
 		} catch (NameNotFoundException e) {
 			e.printStackTrace();
@@ -206,8 +190,7 @@ public class BaseUtils {
 		}
 		OutputStream out = null;
 		try {
-			out = new BufferedOutputStream(new FileOutputStream(filePath),
-					8 * 1024);
+			out = new BufferedOutputStream(new FileOutputStream(filePath), 8 * 1024);
 			isSuccess = bitmap.compress(CompressFormat.PNG, 70, out);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -225,8 +208,7 @@ public class BaseUtils {
 	public static InputStream getStringStream(String sInputString) {
 		if (sInputString != null && !sInputString.trim().equals("")) {
 			try {
-				ByteArrayInputStream tInputStringStream = new ByteArrayInputStream(
-						sInputString.getBytes());
+				ByteArrayInputStream tInputStringStream = new ByteArrayInputStream(sInputString.getBytes());
 				return tInputStringStream;
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -240,5 +222,51 @@ public class BaseUtils {
 		if (file.exists())
 			return true;
 		return false;
+	}
+
+	/**
+	 * 计算对象在音乐中的位置
+	 * 
+	 * @param music
+	 * @return
+	 */
+	public static int calcInMusicPosition(Music music) {
+		int positon = ConstantValue.mlocalMusics.indexOf(music);
+		if (0 > positon) {
+			return 0;
+		}
+		if (positon < ConstantValue.mlocalMusics.size() - 1) {
+			++positon;
+		} else {
+			positon = 0;
+		}
+		return positon;
+	}
+
+	/**
+	 * 根据当前的music计算下一个位置
+	 * 
+	 * @param music
+	 *            当前的对象
+	 * @return
+	 */
+	public static Music calcInMusicByMusic(Music music) {
+		if (null == music)
+			return ConstantValue.mlocalMusics.get(0);
+		int positon = calcInMusicPosition(music);
+		return ConstantValue.mlocalMusics.get(positon);
+	}
+
+	/**
+	 * 根据当前的位置计算下一个位置
+	 * 
+	 * @return
+	 */
+	public static Music calcInMusicByMusic() {
+		int positon = 0;
+		if (ConstantValue.currentMusicPostion <= ConstantValue.mlocalMusics.size() - 1) {
+			positon = ConstantValue.currentMusicPostion;
+		}
+		return ConstantValue.mlocalMusics.get(positon);
 	}
 }

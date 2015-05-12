@@ -81,7 +81,7 @@ public class LocalMusicFragment extends BaseFragment implements OnActionClickLis
 				// 更新歌曲信息
 				if (null != mbBundle) {
 					Music music = (Music) mbBundle.get(ConstantValue.MUSIC_CURRENT_OBJECT);
-					HomeActivity.msongName.setText(music.getFileName());
+					HomeActivity.msongName.setText(music.getTitle());
 					HomeActivity.msongSinger.setText(music.getSinger());
 				}
 
@@ -120,6 +120,11 @@ public class LocalMusicFragment extends BaseFragment implements OnActionClickLis
 		listView = (ActionSlideExpandableListView) view.findViewById(R.id.lv_local_music);
 		// 耗时操作.
 		mMusiclist = MusicUtil.getAllMusic(context);
+		if (null == mMusiclist) {
+			holder.showToast("当前没有本地音乐");
+			return;
+		}
+		ConstantValue.mlocalMusics = mMusiclist;
 		adapter = new LocalMusicAdapter(context, mMusiclist);
 		listView.setAdapter(adapter);
 		listView.setItemActionListener(this, buttonIds);
@@ -162,6 +167,9 @@ public class LocalMusicFragment extends BaseFragment implements OnActionClickLis
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		LogUtils.d("onItemClick-->" + position);
+		// 如果为当前播放的,让当前的item回去
+		if (ConstantValue.MUSIC_CURRENT_STATE == ConstantValue.MUSIC_STATE_PLAYING && ConstantValue.currentMusicPostion == position)
+			return;
 		int[] startLocation = new int[2];
 		view.getLocationInWindow(startLocation);
 		// 先设置监听

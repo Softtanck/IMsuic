@@ -14,6 +14,7 @@ import com.softtanck.imusic.R;
 import com.softtanck.imusic.bean.Music;
 import com.softtanck.imusic.bean.PlayMsg;
 import com.softtanck.imusic.ui.HomeActivity;
+import com.softtanck.imusic.utils.BaseUtils;
 
 /**
  * 
@@ -148,15 +149,16 @@ public class PlayService extends Service implements OnCompletionListener {
 		try {
 			if (mplayer.isPlaying()) {
 				mplayer.stop();
-				mplayer.reset();
 			}
 			// 非暂停状态
 			if (ConstantValue.MUSIC_CURRENT_STATE != ConstantValue.MUSIC_STATE_PAUSE) {
+				mplayer.reset();
 				mplayer.setDataSource(music.getFileUrl());
 				mplayer.prepare();
 			}
 			mplayer.start();
 
+			ConstantValue.currentMusicPostion = BaseUtils.calcInMusicPosition(music);
 			ConstantValue.currentMusic = music;
 			ConstantValue.MUSIC_CURRENT_STATE = ConstantValue.MUSIC_STATE_PLAYING;// 设置状态为播放
 		} catch (Exception e) {
@@ -182,6 +184,7 @@ public class PlayService extends Service implements OnCompletionListener {
 	 * @param music
 	 */
 	private void next(Music music) {
+		ConstantValue.MUSIC_CURRENT_STATE = ConstantValue.MUSIC_STATE_PLAYING;
 		play(music);
 	}
 
@@ -191,6 +194,8 @@ public class PlayService extends Service implements OnCompletionListener {
 	 * @param music
 	 */
 	private void pre(Music music) {
+		ConstantValue.MUSIC_CURRENT_STATE = ConstantValue.MUSIC_STATE_PLAYING;
 		play(music);
 	}
+
 }

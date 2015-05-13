@@ -73,7 +73,7 @@ public class LocalMusicFragment extends BaseFragment implements OnActionClickLis
 			if (ConstantValue.CURRENT_TAG == msg.what) {// 特定handler
 				// 开始更新UI
 				if (ConstantValue.MUSIC_CURRENT_STATE == ConstantValue.MUSIC_STATE_PLAYING) {
-					HomeActivity.mplay_pause.setImageResource(R.drawable.music_pause_selector);
+					//HomeActivity.mplay_pause.setImageResource(R.drawable.music_pause_selector);
 				}
 			}
 		}

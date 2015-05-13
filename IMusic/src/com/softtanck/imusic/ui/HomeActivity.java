@@ -178,21 +178,21 @@ public class HomeActivity extends BaseActivity implements OnMusicStartPlayListen
 				// 设置标志
 				ConstantValue.CURRENT_TAG = ConstantValue.currentMusic.hashCode();
 				msg = new PlayMsg(ConstantValue.currentMusic, ConstantValue.MSG_PAUSE, ConstantValue.TYPE_MSG_MUSIC);
-				HomeActivity.mService.MusicCoreService(msg);
-				HomeActivity.mplay_pause.setImageResource(R.drawable.music_play_selector);
+				mService.MusicCoreService(msg);
+				mplay_pause.setImageResource(R.drawable.music_play_selector);
 			} else {// 去播放
 				// 设置标志
 				ConstantValue.CURRENT_TAG = ConstantValue.currentMusic.hashCode();
 				msg = new PlayMsg(ConstantValue.currentMusic, ConstantValue.MSG_CONTINUE, ConstantValue.TYPE_MSG_MUSIC);
-				HomeActivity.mService.MusicCoreService(msg);
-				HomeActivity.mplay_pause.setImageResource(R.drawable.music_pause_selector);
+				mService.MusicCoreService(msg);
+				mplay_pause.setImageResource(R.drawable.music_pause_selector);
 			}
 			break;
 		case R.id.iv_main_next_song:// 下一首
 			// 设置标志
 			ConstantValue.CURRENT_TAG = ConstantValue.currentMusic.hashCode();
 			msg = new PlayMsg(BaseUtils.calcInMusicByMusic(ConstantValue.currentMusic), ConstantValue.MSG_NEXT_SONG, ConstantValue.TYPE_MSG_MUSIC);
-			HomeActivity.mService.MusicCoreService(msg);
+			mService.MusicCoreService(msg);
 			break;
 		case R.id.iv_main_menu:// 菜单
 			break;
@@ -218,9 +218,9 @@ public class HomeActivity extends BaseActivity implements OnMusicStartPlayListen
 	private void UpdateUi() {
 		// 更新播放暂停按钮
 		if (ConstantValue.MUSIC_CURRENT_STATE == ConstantValue.MUSIC_STATE_PLAYING) {
-			HomeActivity.mplay_pause.setImageResource(R.drawable.music_pause_selector);
+			mplay_pause.setImageResource(R.drawable.music_pause_selector);
 		} else {
-			HomeActivity.mplay_pause.setImageResource(R.drawable.music_play_selector);
+			mplay_pause.setImageResource(R.drawable.music_play_selector);
 		}
 		// 更新歌名和作者
 		msongName.setText(ConstantValue.currentMusic.getTitle());

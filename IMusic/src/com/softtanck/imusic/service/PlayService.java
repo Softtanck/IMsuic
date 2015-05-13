@@ -158,7 +158,7 @@ public class PlayService extends Service implements OnCompletionListener {
 			}
 			mplayer.start();
 
-			ConstantValue.currentMusicPostion = BaseUtils.calcInMusicPosition(music);
+			ConstantValue.currentMusicPostion = BaseUtils.calcInMusicPosition(music) - 1;
 			ConstantValue.currentMusic = music;
 			ConstantValue.MUSIC_CURRENT_STATE = ConstantValue.MUSIC_STATE_PLAYING;// 设置状态为播放
 		} catch (Exception e) {

@@ -34,7 +34,7 @@ import com.softtanck.imusic.utils.LogUtils;
  * @date Apr 14, 2015 8:20:31 PM
  * 
  */
-public class HomeActivity extends BaseActivity {
+public class HomeActivity extends BaseActivity implements OnMusicStartPlayListener {
 
 	/**
 	 * 退出时间
@@ -141,6 +141,7 @@ public class HomeActivity extends BaseActivity {
 		public void onServiceConnected(ComponentName className, IBinder service) {
 			LocalBinder binder = (LocalBinder) service;
 			mService = binder.getService();
+			mService.setListener(HomeActivity.this);
 			isBinded = true;
 		}
 
@@ -178,20 +179,20 @@ public class HomeActivity extends BaseActivity {
 				ConstantValue.CURRENT_TAG = ConstantValue.currentMusic.hashCode();
 				msg = new PlayMsg(ConstantValue.currentMusic, ConstantValue.MSG_PAUSE, ConstantValue.TYPE_MSG_MUSIC);
 				HomeActivity.mService.MusicCoreService(msg);
+				HomeActivity.mplay_pause.setImageResource(R.drawable.music_play_selector);
 			} else {// 去播放
 				// 设置标志
 				ConstantValue.CURRENT_TAG = ConstantValue.currentMusic.hashCode();
-				msg = new PlayMsg(ConstantValue.currentMusic, ConstantValue.MSG_PLAY, ConstantValue.TYPE_MSG_MUSIC);
+				msg = new PlayMsg(ConstantValue.currentMusic, ConstantValue.MSG_CONTINUE, ConstantValue.TYPE_MSG_MUSIC);
 				HomeActivity.mService.MusicCoreService(msg);
+				HomeActivity.mplay_pause.setImageResource(R.drawable.music_pause_selector);
 			}
-			UpdateUi();
 			break;
 		case R.id.iv_main_next_song:// 下一首
 			// 设置标志
 			ConstantValue.CURRENT_TAG = ConstantValue.currentMusic.hashCode();
 			msg = new PlayMsg(BaseUtils.calcInMusicByMusic(ConstantValue.currentMusic), ConstantValue.MSG_NEXT_SONG, ConstantValue.TYPE_MSG_MUSIC);
 			HomeActivity.mService.MusicCoreService(msg);
-			UpdateUi();
 			break;
 		case R.id.iv_main_menu:// 菜单
 			break;
@@ -225,6 +226,11 @@ public class HomeActivity extends BaseActivity {
 		msongName.setText(ConstantValue.currentMusic.getTitle());
 		msongSinger.setText(ConstantValue.currentMusic.getSinger());
 		// 更新专辑头像
+	}
+
+	@Override
+	public void OnStartPlay(Music music) {
+		UpdateUi();
 	}
 
 }

@@ -15,9 +15,8 @@ import com.softtanck.imusic.R;
 import com.softtanck.imusic.bean.Music;
 import com.softtanck.imusic.bean.PlayMsg;
 import com.softtanck.imusic.ui.HomeActivity;
-import com.softtanck.imusic.utils.BaseUtils;
+import com.softtanck.imusic.ui.OnMusicStartPlayListener;
 import com.softtanck.imusic.utils.CalcCurrentMusicPositionTask;
-import com.softtanck.imusic.utils.LogUtils;
 
 /**
  * 
@@ -39,6 +38,15 @@ public class PlayService extends Service implements OnCompletionListener {
 	 * 本地服务对象
 	 */
 	private IBinder mBinder = new LocalBinder(PlayService.this);
+
+	/**
+	 * 音乐开始播放的监听
+	 */
+	private OnMusicStartPlayListener listener;
+
+	public void setListener(OnMusicStartPlayListener listener) {
+		this.listener = listener;
+	}
 
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -95,6 +103,9 @@ public class PlayService extends Service implements OnCompletionListener {
 			case ConstantValue.MSG_PAUSE: // 暂停
 				pause(music);
 				break;
+			case ConstantValue.MSG_CONTINUE:// 继续
+				play(music);
+				break;
 			case ConstantValue.MSG_NEXT_SONG: // 下一首
 				next(music);
 				break;
@@ -135,9 +146,9 @@ public class PlayService extends Service implements OnCompletionListener {
 		Message senMessage = new Message();
 		senMessage.arg1 = typeMsgMusic;// 音乐类型
 		senMessage.what = music.hashCode(); // handler更新标志
-		Bundle data = new Bundle();
-		data.putSerializable(ConstantValue.MUSIC_CURRENT_OBJECT, music);
-		senMessage.setData(data);
+		// Bundle data = new Bundle();
+		// data.putSerializable(ConstantValue.MUSIC_CURRENT_OBJECT, music);
+		// senMessage.setData(data);
 		HandlerMessageContainer.sendAllMessage(senMessage);
 	}
 
@@ -194,14 +205,18 @@ public class PlayService extends Service implements OnCompletionListener {
 	private class PlayMusicAsyTask extends AsyncTask<Music, Void, Music> {
 		@Override
 		protected void onPostExecute(Music music) {
-			if (null != music)
+			if (null != music) {
 				// 发送消息,为了可维护性.
 				sendMsgToUi(music, ConstantValue.TYPE_MSG_MUSIC);
-
+				if (null != listener) {
+					listener.OnStartPlay(music);
+				}
+			}
 		}
 
 		@Override
-		protected Music doInBackground(Music... music) {
+		protected Music doInBackground(Music... params) {
+			Music music = params[0];
 			try {
 				if (mplayer.isPlaying()) {
 					mplayer.stop();
@@ -209,19 +224,19 @@ public class PlayService extends Service implements OnCompletionListener {
 				// 非暂停状态
 				if (ConstantValue.MUSIC_CURRENT_STATE != ConstantValue.MUSIC_STATE_PAUSE) {
 					mplayer.reset();
-					mplayer.setDataSource(music[0].getFileUrl());
+					mplayer.setDataSource(music.getFileUrl());
 					mplayer.prepare();
 				}
 				mplayer.start();
 
 				// 更新当前播放位置
-				new CalcCurrentMusicPositionTask().execute(music[0]);
-				ConstantValue.currentMusic = music[0];
+				new CalcCurrentMusicPositionTask().execute(music);
+				ConstantValue.currentMusic = music;
 				ConstantValue.MUSIC_CURRENT_STATE = ConstantValue.MUSIC_STATE_PLAYING;// 设置状态为播放
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			return music[0];
+			return music;
 		}
 	}
 }

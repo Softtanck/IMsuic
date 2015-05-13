@@ -87,6 +87,11 @@ public class ConstantValue {
 	public static final int MSG_CIRCLE = 7;
 
 	/**
+	 * 继续播放
+	 */
+	public static final int MSG_CONTINUE = 12;
+
+	/**
 	 * 准备
 	 */
 	public static final int MSG_PREPARE = 11;

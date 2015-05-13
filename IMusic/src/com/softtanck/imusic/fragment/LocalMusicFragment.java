@@ -75,16 +75,6 @@ public class LocalMusicFragment extends BaseFragment implements OnActionClickLis
 				if (ConstantValue.MUSIC_CURRENT_STATE == ConstantValue.MUSIC_STATE_PLAYING) {
 					HomeActivity.mplay_pause.setImageResource(R.drawable.music_pause_selector);
 				}
-
-				mbBundle = msg.getData();
-
-				// 更新歌曲信息
-				if (null != mbBundle) {
-					Music music = (Music) mbBundle.get(ConstantValue.MUSIC_CURRENT_OBJECT);
-					HomeActivity.msongName.setText(music.getTitle());
-					HomeActivity.msongSinger.setText(music.getSinger());
-				}
-
 			}
 		}
 	}
@@ -166,7 +156,7 @@ public class LocalMusicFragment extends BaseFragment implements OnActionClickLis
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		LogUtils.d("onItemClick-->" + position+"----"+ConstantValue.currentMusicPostion);
+		LogUtils.d("onItemClick-->" + position + "----" + ConstantValue.currentMusicPostion);
 		// 如果为当前播放的,让当前的item回去
 		if (ConstantValue.MUSIC_CURRENT_STATE == ConstantValue.MUSIC_STATE_PLAYING && ConstantValue.currentMusicPostion == position)
 			return;

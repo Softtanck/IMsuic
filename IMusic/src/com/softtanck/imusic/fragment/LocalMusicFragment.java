@@ -166,7 +166,7 @@ public class LocalMusicFragment extends BaseFragment implements OnActionClickLis
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		LogUtils.d("onItemClick-->" + position);
+		LogUtils.d("onItemClick-->" + position+"----"+ConstantValue.currentMusicPostion);
 		// 如果为当前播放的,让当前的item回去
 		if (ConstantValue.MUSIC_CURRENT_STATE == ConstantValue.MUSIC_STATE_PLAYING && ConstantValue.currentMusicPostion == position)
 			return;

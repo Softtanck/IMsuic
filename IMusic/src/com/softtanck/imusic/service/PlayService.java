@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Message;
@@ -15,6 +16,8 @@ import com.softtanck.imusic.bean.Music;
 import com.softtanck.imusic.bean.PlayMsg;
 import com.softtanck.imusic.ui.HomeActivity;
 import com.softtanck.imusic.utils.BaseUtils;
+import com.softtanck.imusic.utils.CalcCurrentMusicPositionTask;
+import com.softtanck.imusic.utils.LogUtils;
 
 /**
  * 
@@ -86,6 +89,7 @@ public class PlayService extends Service implements OnCompletionListener {
 			Music music = msg.getMusic();
 			switch (userIntent) {
 			case ConstantValue.MSG_PLAY: // 播放
+				ConstantValue.MUSIC_CURRENT_STATE = ConstantValue.MUSIC_STATE_PLAYING;// 更新状态为播放
 				play(music);
 				break;
 			case ConstantValue.MSG_PAUSE: // 暂停
@@ -111,9 +115,6 @@ public class PlayService extends Service implements OnCompletionListener {
 				// TODO 循环播放
 				break;
 			}
-
-			// 发送消息,为了可维护性.
-			sendMsgToUi(music, ConstantValue.TYPE_MSG_MUSIC);
 
 			break;
 		default:
@@ -146,24 +147,7 @@ public class PlayService extends Service implements OnCompletionListener {
 	 * @param music
 	 */
 	private void play(Music music) {
-		try {
-			if (mplayer.isPlaying()) {
-				mplayer.stop();
-			}
-			// 非暂停状态
-			if (ConstantValue.MUSIC_CURRENT_STATE != ConstantValue.MUSIC_STATE_PAUSE) {
-				mplayer.reset();
-				mplayer.setDataSource(music.getFileUrl());
-				mplayer.prepare();
-			}
-			mplayer.start();
-
-			ConstantValue.currentMusicPostion = BaseUtils.calcInMusicPosition(music) - 1;
-			ConstantValue.currentMusic = music;
-			ConstantValue.MUSIC_CURRENT_STATE = ConstantValue.MUSIC_STATE_PLAYING;// 设置状态为播放
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		new PlayMusicAsyTask().execute(music);
 	}
 
 	/**
@@ -198,4 +182,46 @@ public class PlayService extends Service implements OnCompletionListener {
 		play(music);
 	}
 
+	/**
+	 * 
+	 * @Description TODO 播放音乐异步任务
+	 * 
+	 * @author Tanck
+	 * 
+	 * @date May 13, 2015 4:46:38 PM
+	 * 
+	 */
+	private class PlayMusicAsyTask extends AsyncTask<Music, Void, Music> {
+		@Override
+		protected void onPostExecute(Music music) {
+			if (null != music)
+				// 发送消息,为了可维护性.
+				sendMsgToUi(music, ConstantValue.TYPE_MSG_MUSIC);
+
+		}
+
+		@Override
+		protected Music doInBackground(Music... music) {
+			try {
+				if (mplayer.isPlaying()) {
+					mplayer.stop();
+				}
+				// 非暂停状态
+				if (ConstantValue.MUSIC_CURRENT_STATE != ConstantValue.MUSIC_STATE_PAUSE) {
+					mplayer.reset();
+					mplayer.setDataSource(music[0].getFileUrl());
+					mplayer.prepare();
+				}
+				mplayer.start();
+
+				// 更新当前播放位置
+				new CalcCurrentMusicPositionTask().execute(music[0]);
+				ConstantValue.currentMusic = music[0];
+				ConstantValue.MUSIC_CURRENT_STATE = ConstantValue.MUSIC_STATE_PLAYING;// 设置状态为播放
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return music[0];
+		}
+	}
 }

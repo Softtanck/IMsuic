@@ -235,11 +235,6 @@ public class BaseUtils {
 		if (0 > positon) {
 			return 0;
 		}
-		if (positon < ConstantValue.mlocalMusics.size() - 1) {
-			++positon;
-		} else {
-			positon = 0;
-		}
 		return positon;
 	}
 
@@ -254,6 +249,11 @@ public class BaseUtils {
 		if (null == music)
 			return ConstantValue.mlocalMusics.get(0);
 		int positon = calcInMusicPosition(music);
+		if (positon < ConstantValue.mlocalMusics.size() - 1) {
+			++positon;
+		} else {
+			positon = 0;
+		}
 		return ConstantValue.mlocalMusics.get(positon);
 	}
 
@@ -269,4 +269,5 @@ public class BaseUtils {
 		}
 		return ConstantValue.mlocalMusics.get(positon);
 	}
+
 }

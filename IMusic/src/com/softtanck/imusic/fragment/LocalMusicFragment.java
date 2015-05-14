@@ -1,15 +1,12 @@
 package com.softtanck.imusic.fragment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageView;
 
 import com.softtanck.imusic.BaseFragment;
 import com.softtanck.imusic.ConstantValue;
@@ -19,7 +16,6 @@ import com.softtanck.imusic.anim.PlayMusicAnim;
 import com.softtanck.imusic.bean.Music;
 import com.softtanck.imusic.bean.PlayMsg;
 import com.softtanck.imusic.service.meessage.HandlerMessageListener;
-import com.softtanck.imusic.service.meessage.MyHandler;
 import com.softtanck.imusic.thirdpart.ActionSlideExpandableListView;
 import com.softtanck.imusic.thirdpart.ActionSlideExpandableListView.OnActionClickListener;
 import com.softtanck.imusic.ui.HomeActivity;
@@ -73,7 +69,7 @@ public class LocalMusicFragment extends BaseFragment implements OnActionClickLis
 			if (ConstantValue.CURRENT_TAG == msg.what) {// 特定handler
 				// 开始更新UI
 				if (ConstantValue.MUSIC_CURRENT_STATE == ConstantValue.MUSIC_STATE_PLAYING) {
-					//HomeActivity.mplay_pause.setImageResource(R.drawable.music_pause_selector);
+					// HomeActivity.mplay_pause.setImageResource(R.drawable.music_pause_selector);
 				}
 			}
 		}

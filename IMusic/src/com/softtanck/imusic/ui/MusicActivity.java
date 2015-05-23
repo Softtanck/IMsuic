@@ -7,16 +7,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 
 import com.softtanck.imusic.BaseActivity;
 import com.softtanck.imusic.R;
 import com.softtanck.imusic.adapter.HomeContentAdapter;
 import com.softtanck.imusic.background.GetBackground;
 import com.softtanck.imusic.fragment.LrcFragment;
-import com.softtanck.imusic.fragment.MyMusicFragment;
-import com.softtanck.imusic.fragment.RecommendFragment;
-import com.softtanck.imusic.fragment.SearchSongFragment;
-import com.softtanck.imusic.fragment.SongFragment;
 import com.softtanck.imusic.fragment.SongInfoFragment;
 import com.softtanck.imusic.view.tools.MyTransFormer;
 
@@ -46,6 +43,11 @@ public class MusicActivity extends BaseActivity implements OnPageChangeListener 
 	 */
 	private List<Fragment> mList;
 
+	/**
+	 * 进度条
+	 */
+	private SeekBar mSbBar;
+
 	private HomeContentAdapter hadapter;
 
 	@Override
@@ -61,12 +63,24 @@ public class MusicActivity extends BaseActivity implements OnPageChangeListener 
 	@Override
 	protected void onActivityCreate() {
 
-		background = (LinearLayout) findViewById(R.id.music_bg);
-		musicPager = (ViewPager) findViewById(R.id.music_content);
+		initAllView();
+
 		initContentView();
 		// 加载毛玻璃
 		new GetBackground(background, context).execute(R.drawable.tmp_head, 25);
 
+	}
+
+	/**
+	 * 初始化所有控件
+	 */
+	private void initAllView() {
+		background = (LinearLayout) findViewById(R.id.music_bg);
+		musicPager = (ViewPager) findViewById(R.id.music_content);
+
+		mSbBar = (SeekBar) findViewById(R.id.sb_music);
+
+		// 设置SeekBar的Drag
 	}
 
 	/**

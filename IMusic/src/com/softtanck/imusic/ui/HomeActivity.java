@@ -7,7 +7,6 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -100,6 +99,8 @@ public class HomeActivity extends BaseActivity implements OnMusicStartPlayListen
 	@Override
 	protected void onActivityCreate() {
 
+		initTitleView();
+
 		initView();
 
 		songHead = (RoundedCornerImageView) findViewById(R.id.home_iv_now_play_song);
@@ -121,6 +122,14 @@ public class HomeActivity extends BaseActivity implements OnMusicStartPlayListen
 		// 初始化服务
 		initService();
 
+	}
+
+	/**
+	 * 初始化标题
+	 */
+	private void initTitleView() {
+		titleView.addLeftTextMenu(context, R.string.menu_left_string, 0, null);
+		titleView.addRightTextMenu(context, R.string.menu_right_string, 0, null);
 	}
 
 	/**

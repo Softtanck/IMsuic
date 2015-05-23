@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
-import com.softtanck.imusic.service.meessage.MyHandler;
+import com.softtanck.imusic.service.message.MyHandler;
 
 /**
  * @author Tanck

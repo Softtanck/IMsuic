@@ -60,11 +60,10 @@ public class MyMusicFragment extends BaseFragment {
 		switch (v.getId()) {
 		case R.id.home_ll_local_music:// 本地音乐
 			holder.middleFragment = new LocalMusicFragment();
-			holder.changeFragment(R.id.home_content, holder.middleFragment,
-					null);
+			holder.changeFragment(R.id.home_content, holder.middleFragment, null);
 			break;
 
 		}
-
 	}
+
 }

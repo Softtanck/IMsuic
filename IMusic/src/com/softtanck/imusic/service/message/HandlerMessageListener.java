@@ -1,4 +1,4 @@
-package com.softtanck.imusic.service.meessage;
+package com.softtanck.imusic.service.message;
 
 import android.os.Message;
 

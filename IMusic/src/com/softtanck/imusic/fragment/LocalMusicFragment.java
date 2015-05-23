@@ -15,7 +15,7 @@ import com.softtanck.imusic.adapter.LocalMusicAdapter;
 import com.softtanck.imusic.anim.PlayMusicAnim;
 import com.softtanck.imusic.bean.Music;
 import com.softtanck.imusic.bean.PlayMsg;
-import com.softtanck.imusic.service.meessage.HandlerMessageListener;
+import com.softtanck.imusic.service.message.HandlerMessageListener;
 import com.softtanck.imusic.thirdpart.ActionSlideExpandableListView;
 import com.softtanck.imusic.thirdpart.ActionSlideExpandableListView.OnActionClickListener;
 import com.softtanck.imusic.ui.HomeActivity;
@@ -93,10 +93,21 @@ public class LocalMusicFragment extends BaseFragment implements OnActionClickLis
 	@Override
 	public void onViewCreate(View view, Bundle savedInstanceState) {
 
+		initTitelView();
+
 		initView(view);
 
 		mhandler.setListener(this);
 
+	}
+
+	/**
+	 * 设置标题
+	 */
+	private void initTitelView() {
+		holder.titleView.removeAllMenu();
+		holder.titleView.addLeftDrawableMenu(context, R.drawable.btn_back, 15, 25, null);
+		holder.titleView.addRightDrawableMenu(context, R.drawable.btn_right_more, 20, 5, null);
 	}
 
 	/**

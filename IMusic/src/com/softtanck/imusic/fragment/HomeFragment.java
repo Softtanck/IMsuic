@@ -141,17 +141,14 @@ public class HomeFragment extends BaseFragment implements OnPageChangeListener {
 	 * 初始化主页标题
 	 */
 	private void initTitle(View view) {
-		tiltleStrip = (ImageView) view
-				.findViewById(R.id.home_iv_category_selector);
+		tiltleStrip = (ImageView) view.findViewById(R.id.home_iv_category_selector);
 		myTtile = (TextView) view.findViewById(R.id.home_tv_my_tilte);
-		recommedTtile = (TextView) view
-				.findViewById(R.id.home_tv_recommed_title);
+		recommedTtile = (TextView) view.findViewById(R.id.home_tv_recommed_title);
 		songTtile = (TextView) view.findViewById(R.id.home_tv_song_title);
 		serachTtile = (TextView) view.findViewById(R.id.home_tv_serach_title);
 		myTtile.setTextColor(titlecolor);
 		// 首先计算出图片的宽度
-		Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-				R.drawable.home_category_selector);
+		Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.home_category_selector);
 		// 计算偏移
 		offset = (ConstantValue.WINDOW_WIDTH / 4 - bitmap.getWidth()) / 2;
 		// 设置图片的位置,向右偏移
@@ -195,13 +192,9 @@ public class HomeFragment extends BaseFragment implements OnPageChangeListener {
 	public void onPageScrolled(int position, float currentOffset, int arg2) {
 		// 初始位置偏移
 		int moffset = 10;
-		total = position
-				* (ConstantValue.WINDOW_WIDTH - BaseUtils.dip(context, moffset))
-				/ 4;
+		total = position * (ConstantValue.WINDOW_WIDTH - BaseUtils.dip(context, moffset)) / 4;
 		// 位置
-		currentPosition = (int) (-currentOffset
-				* ((ConstantValue.WINDOW_WIDTH - BaseUtils
-						.dip(context, moffset)) / 4) - total);
+		currentPosition = (int) (-currentOffset * ((ConstantValue.WINDOW_WIDTH - BaseUtils.dip(context, moffset)) / 4) - total);
 		tiltleStrip.scrollTo(currentPosition, 0);
 	}
 
@@ -251,4 +244,5 @@ public class HomeFragment extends BaseFragment implements OnPageChangeListener {
 	private void setTextColor(TextView view, int color) {
 		view.setTextColor(color);
 	}
+
 }

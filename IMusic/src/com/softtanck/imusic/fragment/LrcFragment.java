@@ -7,7 +7,7 @@ import android.view.View;
 import com.softtanck.imusic.BaseFragment;
 import com.softtanck.imusic.ConstantValue;
 import com.softtanck.imusic.R;
-import com.softtanck.imusic.service.meessage.HandlerMessageListener;
+import com.softtanck.imusic.service.message.HandlerMessageListener;
 import com.softtanck.imusic.utils.LogUtils;
 import com.softtanck.imusic.view.LrcView;
 

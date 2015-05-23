@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="common_color">#3091e6</color>
-    <color name="common_title_background">#93ffe9</color>
+    <color name="common_color">#000000</color>
+    <color name="common_title_background">#323232</color>
     <color name="xwhite">#FFFFFFFF</color>
     <color name="xblack">#00000000</color>
     <color name="background_tab_pressed">#6633B5E5</color>

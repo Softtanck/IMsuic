@@ -49,8 +49,7 @@ public class TitleView extends FrameLayout {
 		textLeft = (TextView) findViewById(R.id.text_left);
 		textRight = (TextView) findViewById(R.id.text_right);
 
-		TypedArray ta = context.obtainStyledAttributes(attrs,
-				R.styleable.TitleView);
+		TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.TitleView);
 		String title = ta.getString(R.styleable.TitleView_mytitle);
 		txTitle.setText(title);
 		ta.recycle();
@@ -64,13 +63,9 @@ public class TitleView extends FrameLayout {
 		txTitle.setText(text);
 	}
 
-	public View addLeftDrawableMenu(Context context, int drawableId, int width,
-			int height, OnClickListener onMenuClickListener) {
-		View view = createDrawableMenu(context, drawableId, width, height,
-				onMenuClickListener);
-		LinearLayout.LayoutParams LP = new LinearLayout.LayoutParams(
-				LinearLayout.LayoutParams.WRAP_CONTENT,
-				LinearLayout.LayoutParams.MATCH_PARENT);
+	public View addLeftDrawableMenu(Context context, int drawableId, int width, int height, OnClickListener onMenuClickListener) {
+		View view = createDrawableMenu(context, drawableId, width, height, onMenuClickListener);
+		LinearLayout.LayoutParams LP = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
 		int left = BaseUtils.dip(getContext(), 10);
 		int right = BaseUtils.dip(getContext(), 0);
 		view.setPadding(left, 0, right, 0);
@@ -89,17 +84,14 @@ public class TitleView extends FrameLayout {
 	 */
 	public View addLeftDrawableFinish(final Activity context) {
 		int size = BaseUtils.dip(context, 10);
-		View view = createDrawableMenu(context, R.drawable.title_btn_back, size,
-				size, new OnClickListener() {
+		View view = createDrawableMenu(context, R.drawable.title_btn_back, size, size, new OnClickListener() {
 
-					@Override
-					public void onClick(View arg0) {
-						context.finish();
-					}
-				});
-		LinearLayout.LayoutParams LP = new LinearLayout.LayoutParams(
-				LinearLayout.LayoutParams.WRAP_CONTENT,
-				LinearLayout.LayoutParams.MATCH_PARENT);
+			@Override
+			public void onClick(View arg0) {
+				context.finish();
+			}
+		});
+		LinearLayout.LayoutParams LP = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
 		int left = BaseUtils.dip(getContext(), 10);
 		int right = BaseUtils.dip(getContext(), 20);
 		view.setPadding(left, 0, right, 0);
@@ -109,13 +101,9 @@ public class TitleView extends FrameLayout {
 		return view;
 	}
 
-	public View addRightDrawableMenu(Context context, int drawableId,
-			int width, int height, OnClickListener onMenuClickListener) {
-		View view = createDrawableMenu(context, drawableId, width, height,
-				onMenuClickListener);
-		LinearLayout.LayoutParams LP = new LinearLayout.LayoutParams(
-				LinearLayout.LayoutParams.WRAP_CONTENT,
-				LinearLayout.LayoutParams.MATCH_PARENT);
+	public View addRightDrawableMenu(Context context, int drawableId, int width, int height, OnClickListener onMenuClickListener) {
+		View view = createDrawableMenu(context, drawableId, width, height, onMenuClickListener);
+		LinearLayout.LayoutParams LP = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
 		int left = BaseUtils.dip(getContext(), 20);
 		int right = BaseUtils.dip(getContext(), 10);
 		view.setPadding(left, 0, right, 0);
@@ -125,35 +113,25 @@ public class TitleView extends FrameLayout {
 		return view;
 	}
 
-	public void addRightTextMenu(Context context, int textId, int paddings,
-			OnClickListener onMenuClickListener) {
-		Button button = createTextMenu(context, textId, paddings,
-				onMenuClickListener);
+	public void addRightTextMenu(Context context, int textId, int paddings, OnClickListener onMenuClickListener) {
+		Button button = createTextMenu(context, textId, paddings, onMenuClickListener);
 		layRight.addView(button);
 	}
 
-	public void addLeftTextMenu(Context context, int textId, int paddings,
-			OnClickListener onMenuClickListener) {
-		Button button = createTextMenu(context, textId, paddings,
-				onMenuClickListener);
+	public void addLeftTextMenu(Context context, int textId, int paddings, OnClickListener onMenuClickListener) {
+		Button button = createTextMenu(context, textId, paddings, onMenuClickListener);
 		layLeft.addView(button);
 	}
 
-	public Button createTextMenu(Context context, int textId, int paddings,
-			OnClickListener onMenuClickListener) {
+	public Button createTextMenu(Context context, int textId, int paddings, OnClickListener onMenuClickListener) {
 		Button button = new Button(context);
 		button.setText(textId);
 		button.setTextSize(16);
 		button.setGravity(Gravity.CENTER);
-		if (context.getString(textId).equals("快速注册"))
-			button.setTextColor(Color.parseColor("#00FF66"));
-		else
-			button.setTextColor(Color.GRAY);
+		button.setTextColor(Color.GRAY);
 		button.setBackgroundColor(Color.TRANSPARENT);
 
-		LinearLayout.LayoutParams btnLP = new LinearLayout.LayoutParams(
-				LinearLayout.LayoutParams.WRAP_CONTENT,
-				LinearLayout.LayoutParams.WRAP_CONTENT);
+		LinearLayout.LayoutParams btnLP = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 		paddings = BaseUtils.dip(context, paddings);
 		button.setPadding(paddings, paddings, paddings, paddings);
 		button.setLayoutParams(btnLP);
@@ -169,11 +147,49 @@ public class TitleView extends FrameLayout {
 	 * @param onMenuClickListener
 	 * @param text
 	 */
-	public void addRightText(Activity context,
-			OnClickListener onMenuClickListener, String text) {
+	public void addRightText(Activity context, OnClickListener onMenuClickListener, String text) {
 		textRight.setVisibility(View.VISIBLE);
 		textRight.setOnClickListener(onMenuClickListener);
 		textRight.setText(text);
+	}
+
+	/**
+	 * 在标题栏右侧加文字
+	 * 
+	 * @param context
+	 * @param onMenuClickListener
+	 * @param text
+	 */
+	public void addRightText(Activity context, OnClickListener onMenuClickListener, int text) {
+		textRight.setVisibility(View.VISIBLE);
+		textRight.setOnClickListener(onMenuClickListener);
+		textRight.setText(text);
+	}
+
+	/**
+	 * 在标题栏左侧加文字
+	 * 
+	 * @param context
+	 * @param onMenuClickListener
+	 * @param text
+	 */
+	public void addLeftText(Activity context, OnClickListener onMenuClickListener, String text) {
+		textLeft.setVisibility(View.VISIBLE);
+		textLeft.setOnClickListener(onMenuClickListener);
+		textLeft.setText(text);
+	}
+
+	/**
+	 * 在标题栏左侧加文字
+	 * 
+	 * @param context
+	 * @param onMenuClickListener
+	 * @param text
+	 */
+	public void addLeftText(Activity context, OnClickListener onMenuClickListener, int text) {
+		textLeft.setVisibility(View.VISIBLE);
+		textLeft.setOnClickListener(onMenuClickListener);
+		textLeft.setText(text);
 	}
 
 	// public void addRightTextMenu(Context context, int textId, int width, int
@@ -184,30 +200,25 @@ public class TitleView extends FrameLayout {
 	// layRight.addView(button);
 	// }
 
-	public View addLeftMenu(Context context, View view,
-			OnClickListener onMenuClickListener) {
+	public View addLeftMenu(Context context, View view, OnClickListener onMenuClickListener) {
 		view.setOnClickListener(onMenuClickListener);
 		layLeft.addView(view);
 		setIdTagForMenu(view);
 		return view;
 	}
 
-	public View addRightMenu(Context context, View view,
-			OnClickListener onMenuClickListener) {
+	public View addRightMenu(Context context, View view, OnClickListener onMenuClickListener) {
 		view.setOnClickListener(onMenuClickListener);
 		layRight.addView(view);
 		setIdTagForMenu(view);
 		return view;
 	}
 
-	public FrameLayout createDrawableMenu(Context context, int drawableId,
-			int width, int height, OnClickListener onMenuClickListener) {
-		FrameLayout layF = (FrameLayout) LayoutInflater.from(getContext())
-				.inflate(R.layout.view_title_part_drawable_menu, null);
+	public FrameLayout createDrawableMenu(Context context, int drawableId, int width, int height, OnClickListener onMenuClickListener) {
+		FrameLayout layF = (FrameLayout) LayoutInflater.from(getContext()).inflate(R.layout.view_title_part_drawable_menu, null);
 		ImageView imageView = (ImageView) layF.findViewById(R.id.imageView);
 		imageView.setBackgroundResource(drawableId);
-		FrameLayout.LayoutParams btnLP = new FrameLayout.LayoutParams(
-				BaseUtils.dip(context, width), BaseUtils.dip(context, height));
+		FrameLayout.LayoutParams btnLP = new FrameLayout.LayoutParams(BaseUtils.dip(context, width), BaseUtils.dip(context, height));
 		imageView.setLayoutParams(btnLP);
 		btnLP.gravity = Gravity.CENTER_VERTICAL;
 		layF.setOnClickListener(onMenuClickListener);

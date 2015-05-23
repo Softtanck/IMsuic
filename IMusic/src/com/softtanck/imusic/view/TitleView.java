@@ -126,7 +126,7 @@ public class TitleView extends FrameLayout {
 	public Button createTextMenu(Context context, int textId, int paddings, OnClickListener onMenuClickListener) {
 		Button button = new Button(context);
 		button.setText(textId);
-		button.setTextSize(16);
+		button.setTextSize(19);
 		button.setGravity(Gravity.CENTER);
 		button.setTextColor(Color.GRAY);
 		button.setBackgroundColor(Color.TRANSPARENT);

@@ -128,7 +128,7 @@ public class HomeActivity extends BaseActivity implements OnMusicStartPlayListen
 	 * 初始化标题
 	 */
 	private void initTitleView() {
-		titleView.addLeftTextMenu(context, R.string.menu_left_string, 0, null);
+		titleView.addLeftTextMenu(context, R.string.menu_left_string, 15, null);
 		titleView.addRightTextMenu(context, R.string.menu_right_string, 0, null);
 	}
 

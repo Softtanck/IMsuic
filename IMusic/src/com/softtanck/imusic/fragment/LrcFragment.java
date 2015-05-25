@@ -1,15 +1,24 @@
 package com.softtanck.imusic.fragment;
 
+import java.util.List;
+
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Message;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.softtanck.imusic.BaseFragment;
 import com.softtanck.imusic.ConstantValue;
 import com.softtanck.imusic.R;
+import com.softtanck.imusic.adapter.LyricAdapter;
+import com.softtanck.imusic.bean.LyricSentence;
+import com.softtanck.imusic.lrc.LyricLoadHelper;
+import com.softtanck.imusic.lrc.LyricLoadHelper.LyricListener;
 import com.softtanck.imusic.service.message.HandlerMessageListener;
 import com.softtanck.imusic.utils.LogUtils;
-import com.softtanck.imusic.view.LrcView;
 
 /**
  * 
@@ -20,12 +29,38 @@ import com.softtanck.imusic.view.LrcView;
  * @date Apr 16, 2015 5:59:12 PM
  * 
  */
-public class LrcFragment extends BaseFragment implements HandlerMessageListener {
+@SuppressLint("NewApi")
+public class LrcFragment extends BaseFragment implements HandlerMessageListener, LyricListener {
 
 	/**
 	 * 歌词布局
 	 */
-	public static LrcView lrcView;
+	// public static LrcView lrcView;
+
+	/**
+	 * 新的歌词布局
+	 */
+	private ListView mlrcView;
+
+	/**
+	 * 歌词适配器
+	 */
+	public static LyricAdapter adapter;
+
+	/**
+	 * 歌词加载帮助类
+	 */
+	public static LyricLoadHelper loadHelper;
+
+	/**
+	 * 歌曲标题
+	 */
+	public static TextView mMusicTitle;
+
+	/**
+	 * 空
+	 */
+	public static TextView mEmpty;
 
 	@Override
 	public void onAttached() {
@@ -33,6 +68,16 @@ public class LrcFragment extends BaseFragment implements HandlerMessageListener 
 
 	@Override
 	public void onDeatch() {
+	}
+
+	@Override
+	public void handlerMessage(Message msg) {
+
+		// if (MusicTimer.REFRESH_PROGRESS_EVENT == msg.what) {// 消息类型
+		// LogUtils.d("msg:"+HomeActivity.mService.getMediaPosition());
+		// refreshSeekProgress(HomeActivity.mService.getMediaPosition(),
+		// HomeActivity.mService.getMediaDuration());
+		// }
 
 	}
 
@@ -54,7 +99,31 @@ public class LrcFragment extends BaseFragment implements HandlerMessageListener 
 	 * 初始化布局
 	 */
 	private void initView(View view) {
-		lrcView = (LrcView) view.findViewById(R.id.music_lrc);
+		// lrcView = (LrcView) view.findViewById(R.id.music_lrc);
+		mlrcView = (ListView) view.findViewById(R.id.lv_music_lrc);
+
+		mMusicTitle = (TextView) view.findViewById(R.id.music_lrc_fg_musictitle);
+		mEmpty = (TextView) view.findViewById(R.id.music_lrc_empty);
+
+		initLrc();
+
+	}
+
+	/**
+	 * 初始化歌词
+	 */
+	private void initLrc() {
+
+		if (null != ConstantValue.currentMusic) {
+			mMusicTitle.setText(ConstantValue.currentMusic.getTitle());
+			loadHelper = new LyricLoadHelper();
+			adapter = new LyricAdapter(context);
+			loadHelper.setLyricListener(this);
+			mlrcView.setAdapter(adapter);
+			mlrcView.setEmptyView(mEmpty);
+			mlrcView.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
+			loadHelper.loadLyric("/storage/sdcard0/Music/" + ConstantValue.currentMusic.getFileName() + ".lrc"); // 加载歌词路径
+		}
 	}
 
 	@Override
@@ -63,12 +132,17 @@ public class LrcFragment extends BaseFragment implements HandlerMessageListener 
 	}
 
 	@Override
-	public void handlerMessage(Message msg) {
+	public void onLyricLoaded(List<LyricSentence> lyricSentences, int indexOfCurSentence) {
+		adapter.setLyric(lyricSentences);
+		adapter.setCurrentSentenceIndex(indexOfCurSentence);
+		adapter.notifyDataSetChanged();
+	}
 
-		if (ConstantValue.TYPE_MSG_MUSIC == msg.arg1) {// 消息类型
-
-		}
-
+	@Override
+	public void onLyricSentenceChanged(int indexOfCurSentence) {
+		adapter.setCurrentSentenceIndex(indexOfCurSentence);
+		adapter.notifyDataSetChanged();
+		mlrcView.smoothScrollToPositionFromTop(indexOfCurSentence, mlrcView.getHeight() / 2, 500);
 	}
 
 }

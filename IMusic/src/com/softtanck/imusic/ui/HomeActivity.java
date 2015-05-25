@@ -150,7 +150,7 @@ public class HomeActivity extends BaseActivity implements OnMusicStartPlayListen
 		public void onServiceConnected(ComponentName className, IBinder service) {
 			LocalBinder binder = (LocalBinder) service;
 			mService = binder.getService();
-			mService.setListener(HomeActivity.this);
+			mService.setmStartlistener(HomeActivity.this);
 			isBinded = true;
 		}
 

@@ -15,8 +15,10 @@ import com.softtanck.imusic.R;
 import com.softtanck.imusic.bean.Music;
 import com.softtanck.imusic.bean.PlayMsg;
 import com.softtanck.imusic.ui.HomeActivity;
+import com.softtanck.imusic.ui.OnMusicEndPlayListener;
 import com.softtanck.imusic.ui.OnMusicStartPlayListener;
 import com.softtanck.imusic.utils.CalcCurrentMusicPositionTask;
+import com.softtanck.imusic.utils.LogUtils;
 
 /**
  * 
@@ -28,6 +30,7 @@ import com.softtanck.imusic.utils.CalcCurrentMusicPositionTask;
  * 
  */
 public class PlayService extends Service implements OnCompletionListener {
+	// 05-24 15:11:30.935: D/IMusic(4099): /storage/sdcard0/Music/昔日舞曲.mp3
 
 	/**
 	 * 音乐播放器
@@ -42,10 +45,19 @@ public class PlayService extends Service implements OnCompletionListener {
 	/**
 	 * 音乐开始播放的监听
 	 */
-	private OnMusicStartPlayListener listener;
+	private OnMusicStartPlayListener mStartlistener;
 
-	public void setListener(OnMusicStartPlayListener listener) {
-		this.listener = listener;
+	/**
+	 * 音乐播放结束监听
+	 */
+	private OnMusicEndPlayListener mEndListener;
+
+	public void setmEndListener(OnMusicEndPlayListener mEndListener) {
+		this.mEndListener = mEndListener;
+	}
+
+	public void setmStartlistener(OnMusicStartPlayListener listener) {
+		this.mStartlistener = listener;
 	}
 
 	@Override
@@ -82,6 +94,11 @@ public class PlayService extends Service implements OnCompletionListener {
 		ConstantValue.MUSIC_CURRENT_STATE = ConstantValue.MUSIC_STATE_STOP;
 		if (null != HomeActivity.mplay_pause) {// 更新UI
 			HomeActivity.mplay_pause.setImageResource(R.drawable.music_play_selector);
+		}
+
+		// 通知一声播放完成,不更新歌词了.
+		if (null != mEndListener) {
+			mEndListener.OnMusicEndplay();
 		}
 	}
 
@@ -194,6 +211,30 @@ public class PlayService extends Service implements OnCompletionListener {
 	}
 
 	/**
+	 * 获取当前Media的播放位置
+	 * 
+	 * @return
+	 */
+	public int getMediaPosition() {
+		if (null != mplayer) {
+			return mplayer.getCurrentPosition();
+		}
+		return 0;
+	}
+
+	/**
+	 * 总时间
+	 * 
+	 * @return
+	 */
+	public int getMediaDuration() {
+		if (null != mplayer) {
+			return mplayer.getDuration();
+		}
+		return 0;
+	}
+
+	/**
 	 * 
 	 * @Description TODO 播放音乐异步任务
 	 * 
@@ -208,8 +249,8 @@ public class PlayService extends Service implements OnCompletionListener {
 			if (null != music) {
 				// 发送消息,为了可维护性.
 				sendMsgToUi(music, ConstantValue.TYPE_MSG_MUSIC);
-				if (null != listener) {
-					listener.OnStartPlay(music);
+				if (null != mStartlistener) {
+					mStartlistener.OnStartPlay(music);
 				}
 			}
 		}

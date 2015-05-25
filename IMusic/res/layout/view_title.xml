@@ -9,8 +9,9 @@
         android:orientation="vertical" >
 
         <FrameLayout
+            android:id="@+id/fl_title"
             android:layout_width="match_parent"
-            android:layout_height="50dip"
+            android:layout_height="50dp"
             android:background="@color/common_title_background" >
 
             <LinearLayout

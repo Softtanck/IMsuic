@@ -1,18 +1,23 @@
 package com.softtanck.imusic.view;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.os.Build.VERSION;
+import android.os.Build.VERSION_CODES;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.RelativeLayout.LayoutParams;
 
 import com.softtanck.imusic.R;
 import com.softtanck.imusic.utils.BaseUtils;
@@ -22,11 +27,13 @@ import com.softtanck.imusic.utils.BaseUtils;
  * @Description 自定义标题管理
  * @date Jan 19, 2015 11:24:26 AM
  */
+@SuppressLint("InlinedApi")
 public class TitleView extends FrameLayout {
 
 	private TextView txTitle;
 	private LinearLayout layLeft, layRight;
 	private TextView textLeft, textRight;
+	private FrameLayout titleStyle;
 
 	private static int menuId = Integer.MAX_VALUE / 2;
 
@@ -38,6 +45,7 @@ public class TitleView extends FrameLayout {
 		this(context, attrs, 0);
 	}
 
+	@SuppressLint("InlinedApi")
 	public TitleView(final Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 
@@ -48,6 +56,15 @@ public class TitleView extends FrameLayout {
 		layRight = (LinearLayout) findViewById(R.id.layout_right);
 		textLeft = (TextView) findViewById(R.id.text_left);
 		textRight = (TextView) findViewById(R.id.text_right);
+
+		titleStyle = (FrameLayout) findViewById(R.id.fl_title);
+
+		if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
+			((Activity) context).getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+			((Activity) context).getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+			titleStyle.setPadding(0, BaseUtils.dip(context, 10), 0, 0);
+			titleStyle.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, BaseUtils.dip(context, 70)));
+		}
 
 		TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.TitleView);
 		String title = ta.getString(R.styleable.TitleView_mytitle);

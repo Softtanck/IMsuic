@@ -1,9 +1,10 @@
 package com.softtanck.imusic;
 
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -24,6 +25,8 @@ import com.softtanck.imusic.view.TitleView;
  * 
  * @date Jan 16, 2015 5:20:57 PM
  */
+@TargetApi(19)
+@SuppressLint("InlinedApi")
 public abstract class BaseActivity extends FragmentActivity implements OnClickListener {
 
 	/**

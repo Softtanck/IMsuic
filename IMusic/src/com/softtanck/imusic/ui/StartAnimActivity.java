@@ -35,7 +35,7 @@ public class StartAnimActivity extends Activity implements OnClickListener {
 	private ViewPager viewPager;
 	private List<View> pageViews;
 	private ImageView dians;
-	private View go;
+	private ImageView go;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +50,7 @@ public class StartAnimActivity extends Activity implements OnClickListener {
 
 		setContentView(R.layout.activity_start_anim);
 
-		go = pageViews.get(pageViews.size() - 1).findViewById(R.id.starthome);
+		go = (ImageView) pageViews.get(pageViews.size() - 1).findViewById(R.id.starthome);
 		dians = (ImageView) findViewById(R.id.imgDian);
 
 		go.setOnClickListener(this);
@@ -91,7 +91,7 @@ public class StartAnimActivity extends Activity implements OnClickListener {
 		for (int i = 0; i < pageViews.size(); i++) {
 			paint.setColor(Color.GRAY);
 			if (currentIndex == i) // 设置选中项为红色
-				paint.setColor(Color.RED);
+				paint.setColor(Color.WHITE);
 			canvas.drawCircle(radius + spacing * i, radius, radius, paint);
 		}
 		dians.setImageBitmap(points);

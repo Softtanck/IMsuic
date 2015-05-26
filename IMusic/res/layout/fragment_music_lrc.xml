@@ -45,6 +45,7 @@
         android:fadingEdge="none"
         android:fastScrollAlwaysVisible="false"
         android:gravity="center"
+        android:overScrollMode="never"
         android:scrollbars="none" />
 
 </LinearLayout>

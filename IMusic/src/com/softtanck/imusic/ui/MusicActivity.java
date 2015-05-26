@@ -23,6 +23,7 @@ import com.softtanck.imusic.bean.PlayMsg;
 import com.softtanck.imusic.fragment.LrcFragment;
 import com.softtanck.imusic.fragment.SongInfoFragment;
 import com.softtanck.imusic.ui.utils.MusicTimer;
+import com.softtanck.imusic.utils.BaseUtils;
 import com.softtanck.imusic.utils.LogUtils;
 import com.softtanck.imusic.view.tools.MyTransFormer;
 
@@ -194,10 +195,11 @@ public class MusicActivity extends BaseActivity implements OnPageChangeListener,
 			// 正在播放
 			mPlay.setImageResource(R.drawable.music_pause_selector);
 		} else if (ConstantValue.MUSIC_CURRENT_STATE == ConstantValue.MUSIC_STATE_PAUSE) {// 暂停
-			// 更新进度条
-			mPlayBar.setProgress(calcRate(HomeActivity.mService.getMediaPosition(), HomeActivity.mService.getMediaDuration()));
-			// 更新时间
-			mCurrentTime.setText(calcSpecialTime(HomeActivity.mService.getMediaPosition() / 1000, HomeActivity.mService.getMediaDuration() / 1000));
+			refreshUI(HomeActivity.mService.getMediaPosition(), HomeActivity.mService.getMediaDuration());
+//			// 更新进度条
+//			mPlayBar.setProgress(calcRate(HomeActivity.mService.getMediaPosition(), HomeActivity.mService.getMediaDuration()));
+//			// 更新时间
+//			mCurrentTime.setText(calcSpecialTime(HomeActivity.mService.getMediaPosition() / 1000, HomeActivity.mService.getMediaDuration() / 1000));
 		} else { // 停止
 			mPlay.setImageResource(R.drawable.music_play_selector);
 			mCurrentTime.setText(null);
@@ -282,7 +284,9 @@ public class MusicActivity extends BaseActivity implements OnPageChangeListener,
 
 			break;
 		case R.id.music_lrc_next_song:// 下一首
-
+			// 设置标志
+			msg = new PlayMsg(BaseUtils.calcInMusicByMusic(ConstantValue.currentMusic), ConstantValue.MSG_NEXT_SONG, ConstantValue.TYPE_MSG_MUSIC);
+			HomeActivity.mService.MusicCoreService(msg);
 			break;
 
 		case R.id.music_lrc_menu:// 播放列表菜单

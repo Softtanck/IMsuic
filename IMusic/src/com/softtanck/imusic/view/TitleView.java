@@ -62,7 +62,7 @@ public class TitleView extends FrameLayout {
 		if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
 			((Activity) context).getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 			((Activity) context).getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-			titleStyle.setPadding(0, BaseUtils.dip(context, 10), 0, 0);
+			titleStyle.setPadding(0, BaseUtils.dip(context, 15), 0, 0);
 			titleStyle.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, BaseUtils.dip(context, 70)));
 		}
 

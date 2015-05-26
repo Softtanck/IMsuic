@@ -17,6 +17,8 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.softtanck.imusic.R;
@@ -47,6 +49,10 @@ public class StartAnimActivity extends Activity implements OnClickListener {
 		pageViews.add(inflater.inflate(R.layout.guide_item_01, null));
 		pageViews.add(inflater.inflate(R.layout.guide_item_02, null));
 		pageViews.add(inflater.inflate(R.layout.guide_item_03, null));
+
+		requestWindowFeature(Window.FEATURE_NO_TITLE);// 去掉标题栏
+
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);// 去掉信息栏
 
 		setContentView(R.layout.activity_start_anim);
 

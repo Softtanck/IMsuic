@@ -229,7 +229,7 @@ public class MusicActivity extends BaseActivity implements OnPageChangeListener,
 			mTimer = new MusicTimer(mhandler);
 			mTimer.startTimer();
 
-			// 设置播放完成回调
+			// 设置播放完成监听
 			HomeActivity.mService.setmEndListener(this);
 		}
 	}

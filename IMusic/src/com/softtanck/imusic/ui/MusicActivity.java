@@ -19,6 +19,7 @@ import com.softtanck.imusic.ConstantValue;
 import com.softtanck.imusic.R;
 import com.softtanck.imusic.adapter.HomeContentAdapter;
 import com.softtanck.imusic.background.GetBackground;
+import com.softtanck.imusic.bean.Music;
 import com.softtanck.imusic.bean.PlayMsg;
 import com.softtanck.imusic.fragment.LrcFragment;
 import com.softtanck.imusic.fragment.SongInfoFragment;
@@ -37,7 +38,7 @@ import com.softtanck.imusic.view.tools.MyTransFormer;
  * 
  */
 @SuppressLint({ "HandlerLeak", "DefaultLocale" })
-public class MusicActivity extends BaseActivity implements OnPageChangeListener, OnMusicEndPlayListener {
+public class MusicActivity extends BaseActivity implements OnPageChangeListener, OnMusicEndPlayListener, OnMusicStartPlayListener {
 
 	/**
 	 * 播放界面背景
@@ -196,10 +197,12 @@ public class MusicActivity extends BaseActivity implements OnPageChangeListener,
 			mPlay.setImageResource(R.drawable.music_pause_selector);
 		} else if (ConstantValue.MUSIC_CURRENT_STATE == ConstantValue.MUSIC_STATE_PAUSE) {// 暂停
 			refreshUI(HomeActivity.mService.getMediaPosition(), HomeActivity.mService.getMediaDuration());
-//			// 更新进度条
-//			mPlayBar.setProgress(calcRate(HomeActivity.mService.getMediaPosition(), HomeActivity.mService.getMediaDuration()));
-//			// 更新时间
-//			mCurrentTime.setText(calcSpecialTime(HomeActivity.mService.getMediaPosition() / 1000, HomeActivity.mService.getMediaDuration() / 1000));
+			// // 更新进度条
+			// mPlayBar.setProgress(calcRate(HomeActivity.mService.getMediaPosition(),
+			// HomeActivity.mService.getMediaDuration()));
+			// // 更新时间
+			// mCurrentTime.setText(calcSpecialTime(HomeActivity.mService.getMediaPosition()
+			// / 1000, HomeActivity.mService.getMediaDuration() / 1000));
 		} else { // 停止
 			mPlay.setImageResource(R.drawable.music_play_selector);
 			mCurrentTime.setText(null);
@@ -226,6 +229,7 @@ public class MusicActivity extends BaseActivity implements OnPageChangeListener,
 		musicPager.setOnPageChangeListener(this);
 		musicPager.setCurrentItem(1);
 
+		HomeActivity.mService.setmStartlistener(this);
 		// 更新歌词
 		if (ConstantValue.MUSIC_CURRENT_STATE == ConstantValue.MUSIC_STATE_PLAYING) {
 			mTimer = new MusicTimer(mhandler);
@@ -281,11 +285,13 @@ public class MusicActivity extends BaseActivity implements OnPageChangeListener,
 			break;
 
 		case R.id.music_lrc_pre_sone:// 上一首
-
+			// 设置标志
+			msg = new PlayMsg(BaseUtils.calcInMusicByPre(ConstantValue.currentMusic), ConstantValue.MSG_NEXT_SONG, ConstantValue.TYPE_MSG_MUSIC);
+			HomeActivity.mService.MusicCoreService(msg);
 			break;
 		case R.id.music_lrc_next_song:// 下一首
 			// 设置标志
-			msg = new PlayMsg(BaseUtils.calcInMusicByMusic(ConstantValue.currentMusic), ConstantValue.MSG_NEXT_SONG, ConstantValue.TYPE_MSG_MUSIC);
+			msg = new PlayMsg(BaseUtils.calcInMusicByMusicNextMusic(ConstantValue.currentMusic), ConstantValue.MSG_NEXT_SONG, ConstantValue.TYPE_MSG_MUSIC);
 			HomeActivity.mService.MusicCoreService(msg);
 			break;
 
@@ -337,5 +343,15 @@ public class MusicActivity extends BaseActivity implements OnPageChangeListener,
 
 		String curTimeString = String.format("%02d:%02d", curminute, cursecond) + "/" + String.format("%02d:%02d", curminute_, cursecond_);
 		return curTimeString;
+	}
+
+	/**
+	 * 音乐开始播放的时候刷新UI.
+	 */
+	@Override
+	public void OnStartPlay(Music music) {
+
+		// 刷新歌词界面.
+		refreshUI(HomeActivity.mService.getMediaPosition(), HomeActivity.mService.getMediaDuration());
 	}
 }

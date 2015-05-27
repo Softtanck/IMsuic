@@ -200,7 +200,7 @@ public class HomeActivity extends BaseActivity implements OnMusicStartPlayListen
 		case R.id.iv_main_next_song:// 下一首
 			// 设置标志
 			ConstantValue.CURRENT_TAG = ConstantValue.currentMusic.hashCode();
-			msg = new PlayMsg(BaseUtils.calcInMusicByMusic(ConstantValue.currentMusic), ConstantValue.MSG_NEXT_SONG, ConstantValue.TYPE_MSG_MUSIC);
+			msg = new PlayMsg(BaseUtils.calcInMusicByMusicNextMusic(ConstantValue.currentMusic), ConstantValue.MSG_NEXT_SONG, ConstantValue.TYPE_MSG_MUSIC);
 			mService.MusicCoreService(msg);
 			break;
 		case R.id.iv_main_menu:// 菜单

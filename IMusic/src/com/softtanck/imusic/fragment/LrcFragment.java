@@ -15,9 +15,12 @@ import com.softtanck.imusic.ConstantValue;
 import com.softtanck.imusic.R;
 import com.softtanck.imusic.adapter.LyricAdapter;
 import com.softtanck.imusic.bean.LyricSentence;
+import com.softtanck.imusic.bean.Music;
 import com.softtanck.imusic.lrc.LyricLoadHelper;
 import com.softtanck.imusic.lrc.LyricLoadHelper.LyricListener;
 import com.softtanck.imusic.service.message.HandlerMessageListener;
+import com.softtanck.imusic.ui.HomeActivity;
+import com.softtanck.imusic.ui.OnMusicStartPlayListener;
 import com.softtanck.imusic.utils.LogUtils;
 
 /**
@@ -30,7 +33,7 @@ import com.softtanck.imusic.utils.LogUtils;
  * 
  */
 @SuppressLint("NewApi")
-public class LrcFragment extends BaseFragment implements HandlerMessageListener, LyricListener {
+public class LrcFragment extends BaseFragment implements HandlerMessageListener, LyricListener, OnMusicStartPlayListener {
 
 	/**
 	 * 歌词布局
@@ -100,6 +103,8 @@ public class LrcFragment extends BaseFragment implements HandlerMessageListener,
 	 */
 	private void initView(View view) {
 		// lrcView = (LrcView) view.findViewById(R.id.music_lrc);
+
+		HomeActivity.mService.setmStartlistener(this);
 		mlrcView = (ListView) view.findViewById(R.id.lv_music_lrc);
 
 		mMusicTitle = (TextView) view.findViewById(R.id.music_lrc_fg_musictitle);
@@ -143,6 +148,16 @@ public class LrcFragment extends BaseFragment implements HandlerMessageListener,
 		adapter.setCurrentSentenceIndex(indexOfCurSentence);
 		adapter.notifyDataSetChanged();
 		mlrcView.smoothScrollToPositionFromTop(indexOfCurSentence, mlrcView.getHeight() / 2, 500);
+	}
+
+	/**
+	 * 音乐开始播放的时候
+	 * 
+	 * @param music
+	 */
+	@Override
+	public void OnStartPlay(Music music) {
+		initLrc();
 	}
 
 }

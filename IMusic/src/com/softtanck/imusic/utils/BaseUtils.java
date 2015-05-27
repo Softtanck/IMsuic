@@ -245,7 +245,7 @@ public class BaseUtils {
 	 *            当前的对象
 	 * @return
 	 */
-	public static Music calcInMusicByMusic(Music music) {
+	public static Music calcInMusicByMusicNextMusic(Music music) {
 		if (null == music)
 			return ConstantValue.mlocalMusics.get(0);
 		int positon = calcInMusicPosition(music);
@@ -262,10 +262,28 @@ public class BaseUtils {
 	 * 
 	 * @return
 	 */
-	public static Music calcInMusicByMusic() {
+	public static Music calcInMusicByMusicNextMusic() {
 		int positon = 0;
 		if (ConstantValue.currentMusicPostion <= ConstantValue.mlocalMusics.size() - 1) {
 			positon = ConstantValue.currentMusicPostion;
+		}
+		return ConstantValue.mlocalMusics.get(positon);
+	}
+
+	/**
+	 * 根据当前位置计算上一个位置
+	 * 
+	 * @param music
+	 * @return
+	 */
+	public static Music calcInMusicByPre(Music music) {
+		if (null == music)
+			return ConstantValue.mlocalMusics.get(0);
+		int positon = calcInMusicPosition(music);
+		if (positon > 0) {
+			--positon;
+		} else {
+			positon = ConstantValue.mlocalMusics.size() - 1;
 		}
 		return ConstantValue.mlocalMusics.get(positon);
 	}

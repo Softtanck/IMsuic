@@ -17,6 +17,6 @@ public class CalcCurrentMusicTask extends AsyncTask<Music, Void, Music> {
 
 	@Override
 	protected Music doInBackground(Music... params) {
-		return BaseUtils.calcInMusicByMusic(params[0]);
+		return BaseUtils.calcInMusicByMusicNextMusic(params[0]);
 	}
 }

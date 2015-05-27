@@ -93,7 +93,7 @@ public class LocalMusicFragment extends BaseFragment implements OnActionClickLis
 	@Override
 	public void onViewCreate(View view, Bundle savedInstanceState) {
 
-		initTitelView();
+		initTitleView();
 
 		initView(view);
 
@@ -104,7 +104,7 @@ public class LocalMusicFragment extends BaseFragment implements OnActionClickLis
 	/**
 	 * 设置标题
 	 */
-	private void initTitelView() {
+	private void initTitleView() {
 		holder.titleView.removeAllMenu();
 		holder.titleView.addLeftDrawableMenu(context, R.drawable.btn_back, 15, 25, null);
 		holder.titleView.addRightDrawableMenu(context, R.drawable.btn_right_more, 20, 5, null);

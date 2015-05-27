@@ -80,6 +80,10 @@ public class TitleView extends FrameLayout {
 		txTitle.setText(text);
 	}
 
+	public void setTileTextColor(int color) {
+		txTitle.setTextColor(color);
+	}
+
 	public View addLeftDrawableMenu(Context context, int drawableId, int width, int height, OnClickListener onMenuClickListener) {
 		View view = createDrawableMenu(context, drawableId, width, height, onMenuClickListener);
 		LinearLayout.LayoutParams LP = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);

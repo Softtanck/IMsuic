@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -296,7 +297,12 @@ public class MusicActivity extends BaseActivity implements OnPageChangeListener,
 			break;
 
 		case R.id.music_lrc_menu:// 播放列表菜单
-
+			Intent palyQuen = new Intent(MusicActivity.this, PlayQueueActivity.class);
+			// startActivityForResult(palyQuen, 0x1);// 屏蔽动画
+			// Call immediately after one of the flavors of
+			// startActivity(Intent) or finish() to specify an explicit
+			startActivity(palyQuen);
+			overridePendingTransition(R.anim.music_ui_in, R.anim.music_ui_out);
 			break;
 		}
 	}

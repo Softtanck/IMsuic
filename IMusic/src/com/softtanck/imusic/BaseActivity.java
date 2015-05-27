@@ -111,8 +111,8 @@ public abstract class BaseActivity extends FragmentActivity implements OnClickLi
 
 	@Override
 	protected void onDestroy() {
-		super.onDestroy();
 		onDestroyed();
+		super.onDestroy();
 		ActivityContainer.finishActivity(this);
 	}
 

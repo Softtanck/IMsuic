@@ -27,6 +27,9 @@
         </activity>
         <activity android:name="com.softtanck.imusic.ui.MusicActivity" />
         <activity android:name="com.softtanck.imusic.ui.HomeActivity" />
+        <activity
+            android:name="com.softtanck.imusic.ui.PlayQueueActivity"
+            android:theme="@style/Transparent" />
 
         <service android:name="com.softtanck.imusic.service.PlayService" />
     </application>

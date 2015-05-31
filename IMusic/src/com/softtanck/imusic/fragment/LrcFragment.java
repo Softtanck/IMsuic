@@ -141,6 +141,9 @@ public class LrcFragment extends BaseFragment implements HandlerMessageListener,
 		adapter.setLyric(lyricSentences);
 		adapter.setCurrentSentenceIndex(indexOfCurSentence);
 		adapter.notifyDataSetChanged();
+		if (ConstantValue.MUSIC_CURRENT_STATE == ConstantValue.MUSIC_STATE_PAUSE) {// 暂停状态
+			loadHelper.notifyTime(HomeActivity.mService.getMediaPosition());
+		}
 	}
 
 	@Override

@@ -67,7 +67,7 @@ public class PlayQueueAdapter extends BaseAdapter {
 
 		holder.tvName.setText(mList.get(position).getTitle());
 
-		holder.tvNumber.setText(String.valueOf(position));
+		holder.tvNumber.setText(String.valueOf(position + 1));
 
 		return convertView;
 	}

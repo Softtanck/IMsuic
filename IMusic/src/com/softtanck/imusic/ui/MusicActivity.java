@@ -9,7 +9,9 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
@@ -19,6 +21,7 @@ import com.softtanck.imusic.BaseActivity;
 import com.softtanck.imusic.ConstantValue;
 import com.softtanck.imusic.R;
 import com.softtanck.imusic.adapter.HomeContentAdapter;
+import com.softtanck.imusic.anim.PlayMusicAnim;
 import com.softtanck.imusic.background.GetBackground;
 import com.softtanck.imusic.bean.Music;
 import com.softtanck.imusic.bean.PlayMsg;
@@ -27,6 +30,7 @@ import com.softtanck.imusic.fragment.SongInfoFragment;
 import com.softtanck.imusic.ui.utils.MusicTimer;
 import com.softtanck.imusic.utils.BaseUtils;
 import com.softtanck.imusic.utils.LogUtils;
+import com.softtanck.imusic.view.Slider;
 import com.softtanck.imusic.view.tools.MyTransFormer;
 
 /**
@@ -59,7 +63,7 @@ public class MusicActivity extends BaseActivity implements OnPageChangeListener,
 	/**
 	 * 进度条
 	 */
-	private SeekBar mPlayBar;
+	private Slider mPlayBar;
 
 	/**
 	 * ViewPager的适配器
@@ -117,6 +121,14 @@ public class MusicActivity extends BaseActivity implements OnPageChangeListener,
 		};
 	};
 
+	private float oldX;
+
+	private float mX;
+
+	private float oldY;
+
+	private float mY;
+
 	@Override
 	protected int getViewId() {
 		return R.layout.activity_music;
@@ -139,7 +151,8 @@ public class MusicActivity extends BaseActivity implements OnPageChangeListener,
 
 		mCurrentTime.setText(curTimeString);
 
-		mPlayBar.setProgress(calcRate(curTime, totalTime));
+		if (!mPlayBar.isPress())
+			mPlayBar.setValue(calcRate(curTime, totalTime));
 
 		LrcFragment.loadHelper.notifyTime(tempCurTime);
 	}
@@ -175,7 +188,7 @@ public class MusicActivity extends BaseActivity implements OnPageChangeListener,
 		mNext = (ImageView) findViewById(R.id.music_lrc_next_song);
 		mMenu = (ImageView) findViewById(R.id.music_lrc_menu);
 
-		mPlayBar = (SeekBar) findViewById(R.id.sb_music);
+		mPlayBar = (Slider) findViewById(R.id.sb_music);
 		mCurrentTime = (TextView) findViewById(R.id.music_lrc_current_time);
 
 		// 初始化状态
@@ -207,7 +220,7 @@ public class MusicActivity extends BaseActivity implements OnPageChangeListener,
 		} else { // 停止
 			mPlay.setImageResource(R.drawable.music_play_selector);
 			mCurrentTime.setText(null);
-			mPlayBar.setProgress(0);
+			mPlayBar.setValue(0);
 		}
 	}
 
@@ -282,7 +295,13 @@ public class MusicActivity extends BaseActivity implements OnPageChangeListener,
 			}
 			break;
 		case R.id.music_lrc_play_mode:// 模式
-
+			if (!PlayMusicAnim.isShowMode()) {
+				PlayMusicAnim.setModeAnim(MusicActivity.this, mMode, this);
+				mMode.startAnimation(AnimationUtils.loadAnimation(context, R.anim.icon_rotate_start));
+			} else {
+				PlayMusicAnim.setModeAnim(MusicActivity.this, mMode, this);
+				mMode.startAnimation(AnimationUtils.loadAnimation(context, R.anim.icon_rotate_end));
+			}
 			break;
 
 		case R.id.music_lrc_pre_sone:// 上一首
@@ -302,7 +321,8 @@ public class MusicActivity extends BaseActivity implements OnPageChangeListener,
 			// Call immediately after one of the flavors of
 			// startActivity(Intent) or finish() to specify an explicit
 			startActivity(palyQuen);
-			overridePendingTransition(R.anim.music_ui_in, R.anim.music_ui_out);
+			// overridePendingTransition(R.anim.music_ui_out,
+			// R.anim.music_ui_in);
 			break;
 		}
 	}
@@ -359,5 +379,38 @@ public class MusicActivity extends BaseActivity implements OnPageChangeListener,
 
 		// 刷新歌词界面.
 		refreshUI(HomeActivity.mService.getMediaPosition(), HomeActivity.mService.getMediaDuration());
+	}
+
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+
+		switch (event.getAction()) {
+		case MotionEvent.ACTION_DOWN:
+
+			oldX = event.getX();
+
+			oldY = event.getY();
+
+			break;
+		case MotionEvent.ACTION_UP:
+
+			mX = event.getX();
+
+			mY = event.getY();
+
+			// 右滑
+			if (0 > (mX - oldX) && 10 > Math.abs(mY - oldY)) {
+
+				LogUtils.d(musicPager.getCurrentItem() + "");
+			} else {
+
+				// 左滑
+
+			}
+
+			break;
+		}
+
+		return super.onTouchEvent(event);
 	}
 }

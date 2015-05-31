@@ -204,6 +204,8 @@ public class HomeActivity extends BaseActivity implements OnMusicStartPlayListen
 			mService.MusicCoreService(msg);
 			break;
 		case R.id.iv_main_menu:// 菜单
+			Intent palyQuen = new Intent(HomeActivity.this, PlayQueueActivity.class);
+			startActivity(palyQuen);
 			break;
 		}
 	}

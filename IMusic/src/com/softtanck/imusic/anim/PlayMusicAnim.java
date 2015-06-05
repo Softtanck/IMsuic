@@ -85,7 +85,7 @@ public class PlayMusicAnim {
 	/**
 	 * 模式知之间的距离
 	 */
-	private static int mMargin = 100;
+	private static int mMargin = 0;
 
 	/**
 	 * 动画展示标志
@@ -96,7 +96,7 @@ public class PlayMusicAnim {
 	 * 模式监听
 	 */
 
-	public static void setModeAnim(Activity context, ImageView mMode, OnClickListener onClickListener) {
+	public static void setModeAnim(Activity context, final ImageView mMode, OnClickListener onClickListener) {
 
 		if (isShow) {
 			isShow = false;
@@ -121,19 +121,19 @@ public class PlayMusicAnim {
 		mOrderPlay.setImageResource(R.drawable.play_order_selector);
 		mRounderPlay.setImageResource(R.drawable.play_runder_selector);
 
+		// 设置ID
+		mListLoop.setId(R.id.mListLoop);
+		mOneLoop.setId(R.id.mOneLoop);
+		mOrderPlay.setId(R.id.mOrderPlay);
+		mRounderPlay.setId(R.id.mRounderPlay);
+
 		manimLayout.addView(mListLoop);// 添加动画到动画层
 		manimLayout.addView(mOneLoop);// 添加动画到动画层
 		manimLayout.addView(mOrderPlay);// 添加动画到动画层
 		manimLayout.addView(mRounderPlay);// 添加动画到动画层
 
 		if (null != onClickListener) {
-			mListLoop.setOnClickListener(new OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					LogUtils.d("----");
-				}
-			});
+			mListLoop.setOnClickListener(onClickListener);
 			mOneLoop.setOnClickListener(onClickListener);
 			mOrderPlay.setOnClickListener(onClickListener);
 			mRounderPlay.setOnClickListener(onClickListener);
@@ -145,20 +145,22 @@ public class PlayMusicAnim {
 		View vorderplay = setViewinRelativeAnimLayout(mOrderPlay, location);
 		View vrounderplay = setViewinRelativeAnimLayout(mRounderPlay, location);
 
+		mMargin = mMode.getHeight();
+
 		// 计算位移
-		AnimationSet set_one = doTransetAnim(vlistLoop, mMode, ConstantValue.WINDOW_WIDTH - mMode.getWidth() - mMargin);
+		AnimationSet set_one = doTransetAnim(vlistLoop, mMode, 0, 1);
 		vlistLoop.startAnimation(set_one);
 
 		// 计算位移
-		AnimationSet set_two = doTransetAnim(voneloop, mMode, ConstantValue.WINDOW_WIDTH / 4 * 3 - mMode.getWidth() - mMargin);
+		AnimationSet set_two = doTransetAnim(voneloop, mMode, 0, 2);
 		voneloop.startAnimation(set_two);
 
 		// 计算位移
-		AnimationSet set_three = doTransetAnim(vorderplay, mMode, ConstantValue.WINDOW_WIDTH / 4 * 2 - mMode.getWidth() - mMargin + 10);
+		AnimationSet set_three = doTransetAnim(vorderplay, mMode, 0, 3);
 		vorderplay.startAnimation(set_three);
 
 		// 计算位移
-		AnimationSet set_four = doTransetAnim(vrounderplay, mMode, ConstantValue.WINDOW_WIDTH / 4 - mMode.getWidth() - mMargin);
+		AnimationSet set_four = doTransetAnim(vrounderplay, mMode, 0, 4);
 		vrounderplay.startAnimation(set_four);
 
 	}
@@ -170,33 +172,22 @@ public class PlayMusicAnim {
 	 * @param endX
 	 * @return
 	 */
-	private static AnimationSet doTransetAnim(final View view, ImageView mMode, final int endX) {
-		final int endY = mMode.getHeight() + 70;// 动画位移的y坐标
-
-		TranslateAnimation translateAnimationX = new TranslateAnimation(0, endX, 0, 0);
-		translateAnimationX.setInterpolator(new LinearInterpolator());
-		translateAnimationX.setRepeatCount(0);// 动画重复执行的次数
-		translateAnimationX.setFillEnabled(true);
-		translateAnimationX.setFillAfter(true);
-
-		TranslateAnimation translateAnimationY = new TranslateAnimation(0, 0, 0, -endY);
+	private static AnimationSet doTransetAnim(final View view, final ImageView mMode, final int endX, final int scale) {
+		final int endY = mMargin * scale;// 动画位移的y坐标
+		TranslateAnimation translateAnimationY = new TranslateAnimation(0, 0, 0, -BaseUtils.dip(view.getContext(), endY));
 		translateAnimationY.setInterpolator(new AccelerateInterpolator());
 		translateAnimationY.setRepeatCount(0);// 动画重复执行的次数
-		translateAnimationX.setFillEnabled(true);
-		translateAnimationX.setFillAfter(true);
+		translateAnimationY.setFillAfter(true);
 
 		AnimationSet set = new AnimationSet(false);
 		set.setFillAfter(true);
 		set.addAnimation(translateAnimationY);
-		set.addAnimation(translateAnimationX);
+		// set.addAnimation(translateAnimationX);
 		set.setDuration(300);// 动画的执行时间
 		set.setAnimationListener(new AnimationListener() {
 
 			@Override
 			public void onAnimationStart(Animation animation) {
-				view.setVisibility(View.GONE);
-				view.layout(endX, endY, endX+view.getWidth(), endY+view.getHeight());
-				view.setVisibility(View.VISIBLE);
 			}
 
 			@Override
@@ -206,11 +197,12 @@ public class PlayMusicAnim {
 
 			@Override
 			public void onAnimationEnd(Animation animation) {
-				
-//				int[] startlocation = new int[2];
-//				startlocation[0] = endX;
-//				startlocation[1] = endY;
-//				setViewinRelativeAnimLayout(view, startlocation);
+				int left = view.getLeft();
+				int top = view.getTop() - mMargin * scale;
+				int width = view.getWidth();
+				int height = view.getHeight();
+				view.clearAnimation();
+				view.layout(left, top, left + width, top + height);
 			}
 		});
 		return set;

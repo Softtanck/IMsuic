@@ -308,11 +308,15 @@ public class MusicActivity extends BaseActivity implements OnPageChangeListener,
 			// 设置标志
 			msg = new PlayMsg(BaseUtils.calcInMusicByPre(ConstantValue.currentMusic), ConstantValue.MSG_NEXT_SONG, ConstantValue.TYPE_MSG_MUSIC);
 			HomeActivity.mService.MusicCoreService(msg);
+
+			// TODO 更新UI.
 			break;
 		case R.id.music_lrc_next_song:// 下一首
 			// 设置标志
 			msg = new PlayMsg(BaseUtils.calcInMusicByMusicNextMusic(ConstantValue.currentMusic), ConstantValue.MSG_NEXT_SONG, ConstantValue.TYPE_MSG_MUSIC);
 			HomeActivity.mService.MusicCoreService(msg);
+
+			// TODO 更新UI.
 			break;
 
 		case R.id.music_lrc_menu:// 播放列表菜单
@@ -324,6 +328,19 @@ public class MusicActivity extends BaseActivity implements OnPageChangeListener,
 			// overridePendingTransition(R.anim.music_ui_out,
 			// R.anim.music_ui_in);
 			break;
+		case R.id.mListLoop:// 列表循环
+			showToast("当前播放模式:列表循环");
+			break;
+		case R.id.mOneLoop:// 单曲循环
+			showToast("当前播放模式:单曲循环");
+			break;
+		case R.id.mOrderPlay:// 顺序播放
+			showToast("当前播放模式:顺序播放");
+			break;
+		case R.id.mRounderPlay:// 随机播放
+			showToast("当前播放模式:随机播放");
+			break;
+
 		}
 	}
 

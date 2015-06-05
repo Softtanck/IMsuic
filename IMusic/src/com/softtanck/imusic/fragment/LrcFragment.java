@@ -127,7 +127,7 @@ public class LrcFragment extends BaseFragment implements HandlerMessageListener,
 			mlrcView.setAdapter(adapter);
 			mlrcView.setEmptyView(mEmpty);
 			mlrcView.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
-			loadHelper.loadLyric("/storage/sdcard0/Music/" + ConstantValue.currentMusic.getFileName() + ".lrc"); // 加载歌词路径
+			loadHelper.loadLyric("/storage/sdcard0/Music/" + "jx" + ".lrc"); // 加载歌词路径
 		}
 	}
 

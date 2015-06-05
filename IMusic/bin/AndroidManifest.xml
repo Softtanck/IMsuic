@@ -13,11 +13,11 @@
     <application
         android:name="com.softtanck.imusic.IMusic"
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/music_icon"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.softtanck.imusic.ui.StartAnimActivity"
+            android:name="com.softtanck.imusic.ui.SplashActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,6 +27,7 @@
         </activity>
         <activity android:name="com.softtanck.imusic.ui.MusicActivity" />
         <activity android:name="com.softtanck.imusic.ui.HomeActivity" />
+        <activity android:name="com.softtanck.imusic.ui.StartAnimActivity" />
         <activity
             android:name="com.softtanck.imusic.ui.PlayQueueActivity"
             android:theme="@style/Transparent" />

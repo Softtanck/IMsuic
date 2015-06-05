@@ -124,9 +124,11 @@ public class PlayService extends Service implements OnCompletionListener {
 				play(music);
 				break;
 			case ConstantValue.MSG_NEXT_SONG: // 下一首
+				ConstantValue.MUSIC_CURRENT_STATE = ConstantValue.MUSIC_STATE_PLAYING;// 更新状态为播放
 				next(music);
 				break;
-			case ConstantValue.MSG_PRE_SONG: // 上一首
+			case ConstantValue.MSG_PRE_SONG: // 上一首 
+				ConstantValue.MUSIC_CURRENT_STATE = ConstantValue.MUSIC_STATE_PLAYING;// 更新状态为播放
 				pre(music);
 				break;
 			case ConstantValue.MSG_SEQUENCE:// 顺序播放

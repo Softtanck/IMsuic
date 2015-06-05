@@ -2,9 +2,11 @@ package com.softtanck.imusic.fragment;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 
 import com.softtanck.imusic.BaseFragment;
 import com.softtanck.imusic.R;
+import com.softtanck.imusic.ui.utils.CircleImageView;
 
 /**
  * 
@@ -16,6 +18,8 @@ import com.softtanck.imusic.R;
  * 
  */
 public class SongInfoFragment extends BaseFragment {
+
+	private CircleImageView imageView;
 
 	@Override
 	public void onAttached() {
@@ -37,13 +41,12 @@ public class SongInfoFragment extends BaseFragment {
 
 	@Override
 	public void onViewCreate(View view, Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-
+		imageView = (CircleImageView) view.findViewById(R.id.tv_music_song_info);
+		imageView.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.song_info_rotate));
 	}
 
 	@Override
 	protected void getservciesData() {
-		// TODO Auto-generated method stub
 
 	}
 

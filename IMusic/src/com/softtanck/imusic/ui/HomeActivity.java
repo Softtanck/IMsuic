@@ -235,12 +235,16 @@ public class HomeActivity extends BaseActivity implements OnMusicStartPlayListen
 		}
 		// 更新歌名和作者
 		msongName.setText(ConstantValue.currentMusic.getTitle());
-		msongSinger.setText(ConstantValue.currentMusic.getSinger());
+		if (!ConstantValue.UNKNOW.equals(ConstantValue.currentMusic.getSinger()))
+			msongSinger.setText(ConstantValue.currentMusic.getSinger());
+		else
+			msongSinger.setText("");
 		// 更新专辑头像
 	}
 
 	@Override
 	public void OnStartPlay(Music music) {
+		LogUtils.d("回调了");
 		UpdateUi();
 	}
 

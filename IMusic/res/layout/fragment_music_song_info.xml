@@ -3,12 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
+    android:gravity="center"
     android:orientation="vertical" >
 
-    <TextView
+    <com.softtanck.imusic.ui.utils.CircleImageView
         android:id="@+id/tv_music_song_info"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="我是歌曲信息" />
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/tmp_head" />
 
 </LinearLayout>

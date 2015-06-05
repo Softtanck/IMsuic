@@ -159,4 +159,9 @@ public class ConstantValue {
 	 */
 	public static List<Music> mlocalMusics = new ArrayList<Music>();
 
+	/**
+	 * 未知歌手
+	 */
+	public static final String UNKNOW = "<unknown>";
+
 }

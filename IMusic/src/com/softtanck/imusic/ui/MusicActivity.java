@@ -31,6 +31,8 @@ import com.softtanck.imusic.ui.utils.MusicTimer;
 import com.softtanck.imusic.utils.BaseUtils;
 import com.softtanck.imusic.utils.LogUtils;
 import com.softtanck.imusic.view.Slider;
+import com.softtanck.imusic.view.Slider.OnTouchOverListener;
+import com.softtanck.imusic.view.Slider.OnValueChangedListener;
 import com.softtanck.imusic.view.tools.MyTransFormer;
 
 /**
@@ -43,7 +45,8 @@ import com.softtanck.imusic.view.tools.MyTransFormer;
  * 
  */
 @SuppressLint({ "HandlerLeak", "DefaultLocale" })
-public class MusicActivity extends BaseActivity implements OnPageChangeListener, OnMusicEndPlayListener, OnMusicStartPlayListener {
+public class MusicActivity extends BaseActivity implements OnPageChangeListener, OnMusicEndPlayListener, OnMusicStartPlayListener, OnValueChangedListener,
+		OnTouchOverListener {
 
 	/**
 	 * 播放界面背景
@@ -129,6 +132,8 @@ public class MusicActivity extends BaseActivity implements OnPageChangeListener,
 
 	private float mY;
 
+	private int postition;
+
 	@Override
 	protected int getViewId() {
 		return R.layout.activity_music;
@@ -200,6 +205,8 @@ public class MusicActivity extends BaseActivity implements OnPageChangeListener,
 		mMenu.setOnClickListener(this);
 		mPlay.setOnClickListener(this);
 		// 设置SeekBar的Drag
+		mPlayBar.setOnValueChangedListener(this);
+		mPlayBar.setOnTouchOverListener(this);
 	}
 
 	/**
@@ -429,5 +436,18 @@ public class MusicActivity extends BaseActivity implements OnPageChangeListener,
 		}
 
 		return super.onTouchEvent(event);
+	}
+
+	/**
+	 * 进度条滚动的时候
+	 */
+	@Override
+	public void onValueChanged(int value) {
+		postition = (int) ((1.0 * value / 100) * HomeActivity.mService.getMediaDuration());
+	}
+
+	@Override
+	public void onTouchOver() {
+		HomeActivity.mService.SeeKTo(postition);
 	}
 }

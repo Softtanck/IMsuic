@@ -1,5 +1,7 @@
 package com.softtanck.imusic.view;
 
+import java.security.PublicKey;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -32,6 +34,7 @@ public class Slider extends CustomView {
 	private int min = 0;
 	private NumberIndicator numberIndicator;
 	private OnValueChangedListener onValueChangedListener;
+	private OnTouchOverListener onTouchOverListener;
 	private boolean placedBall = false;
 	private boolean press = false;
 	private boolean showNumberIndicator = false;
@@ -64,6 +67,10 @@ public class Slider extends CustomView {
 
 	public OnValueChangedListener getOnValueChangedListener() {
 		return onValueChangedListener;
+	}
+
+	public void setOnTouchOverListener(OnTouchOverListener onTouchOverListener) {
+		this.onTouchOverListener = onTouchOverListener;
 	}
 
 	public void setOnValueChangedListener(OnValueChangedListener onValueChangedListener) {
@@ -162,6 +169,8 @@ public class Slider extends CustomView {
 					numberIndicator.dismiss();
 				isLastTouch = false;
 				press = false;
+				if (null != onTouchOverListener)
+					onTouchOverListener.onTouchOver();
 			}
 		}
 		return true;
@@ -287,6 +296,10 @@ public class Slider extends CustomView {
 	// Event when slider change value
 	public interface OnValueChangedListener {
 		public void onValueChanged(int value);
+	}
+
+	public interface OnTouchOverListener {
+		public void onTouchOver();
 	}
 
 	class Ball extends View {

@@ -29,7 +29,7 @@ public class SplashActivity extends Activity {
 		setContentView(R.layout.activity_splash);
 		mWelcome = (LinearLayout) findViewById(R.id.ll_welcome);
 		AlphaAnimation animation = new AlphaAnimation(0.0f, 1.0f);
-		animation.setDuration(1000);
+		animation.setDuration(3000);
 		animation.setAnimationListener(new AnimationListener() {
 
 			@Override

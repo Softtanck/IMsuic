@@ -127,7 +127,7 @@ public class PlayService extends Service implements OnCompletionListener {
 				ConstantValue.MUSIC_CURRENT_STATE = ConstantValue.MUSIC_STATE_PLAYING;// 更新状态为播放
 				next(music);
 				break;
-			case ConstantValue.MSG_PRE_SONG: // 上一首 
+			case ConstantValue.MSG_PRE_SONG: // 上一首
 				ConstantValue.MUSIC_CURRENT_STATE = ConstantValue.MUSIC_STATE_PLAYING;// 更新状态为播放
 				pre(music);
 				break;
@@ -234,6 +234,17 @@ public class PlayService extends Service implements OnCompletionListener {
 			return mplayer.getDuration();
 		}
 		return 0;
+	}
+
+	/**
+	 * 更新播放位置
+	 * 
+	 * @param postition
+	 */
+	public void SeeKTo(int postition) {
+		if (ConstantValue.MUSIC_CURRENT_STATE == ConstantValue.MUSIC_STATE_PLAYING) {
+			mplayer.seekTo(postition);
+		}
 	}
 
 	/**

@@ -146,6 +146,12 @@ public class HomeFragment extends BaseFragment implements OnPageChangeListener {
 		recommedTtile = (TextView) view.findViewById(R.id.home_tv_recommed_title);
 		songTtile = (TextView) view.findViewById(R.id.home_tv_song_title);
 		serachTtile = (TextView) view.findViewById(R.id.home_tv_serach_title);
+
+		myTtile.setOnClickListener(this);
+		recommedTtile.setOnClickListener(this);
+		songTtile.setOnClickListener(this);
+		serachTtile.setOnClickListener(this);
+
 		myTtile.setTextColor(titlecolor);
 		// 首先计算出图片的宽度
 		Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.home_category_selector);
@@ -245,4 +251,22 @@ public class HomeFragment extends BaseFragment implements OnPageChangeListener {
 		view.setTextColor(color);
 	}
 
+	@Override
+	public void onClick(View v) {
+		super.onClick(v);
+		switch (v.getId()) {
+		case R.id.home_tv_my_tilte:
+			mPager.setCurrentItem(0);
+			break;
+		case R.id.home_tv_recommed_title:
+			mPager.setCurrentItem(1);
+			break;
+		case R.id.home_tv_song_title:
+			mPager.setCurrentItem(2);
+			break;
+		case R.id.home_tv_serach_title:
+			mPager.setCurrentItem(3);
+			break;
+		}
+	}
 }
